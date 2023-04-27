@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         final LinearLayout background = findViewById(R.id.linear);
 
         //Array of images, images made be added as needed
-        final int a[] = {R.drawable.shoppingpic, R.drawable.hattiecampbell, R.drawable.oregonstart};
+        final int a[] = {R.drawable.shoppingpic, R.drawable.traveling, R.drawable.hattiecampbell, R.drawable.oregonstart, R.drawable.chimneyrock, R.drawable.forthall, R.drawable.fortboise, R.drawable.fortkearney, R.drawable.fortwallawalla, R.drawable.laramie, R.drawable.sodaspring, R.drawable.southpass, R.drawable.thedalles, R.drawable.oregoncity};
 
         //Creates a media player for main theme
         mp = MediaPlayer.create(this, R.raw.maintune);
@@ -203,7 +203,11 @@ public class MainActivity extends AppCompatActivity {
                     String person = health.randomPerson();
                     health.sickPerson(person);
                     String sickMessage = person + " has contracted " + disease;
+                    health.addHealth(20);
                 }
+
+                // add one for each party member that is sick
+                health.addHealth(health.getSickPeople());
 
                 // Reset the amount of accumulated precipitation.
                 weather.resetRain();
@@ -214,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                     If someone gets bit by a snake the overall health goes up by 10
                     If Indians help you find food the amount of food goes up 8 pounds
                     If you take the wrong trail you have to back track using vital supplies
-                    Otherwise they message "It was a normal day" apears
+                    Otherwise they message "It was a normal day" appears
                  */
                 if (re.snakeBite()) {
                     health.addHealth(10);
@@ -249,19 +253,28 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     reBox.setText("It was a normal day!");
                 }
+
+                // When the total accumulated rain is less than 0.1 inch drought occurs and its consequences are invoked.
                 if (weather.getTotalRain() <= 0.1) {
+                    // Check if there is bad water, very little water, or bad grass.
                     if (re.badWater()) {
+                        // When there is bad water tell the user and add 20 to the groups overall health.
                         reBox.setText("The water is bad.");
                         health.addHealth(20);
                     } else if (re.littleWater()) {
+                        // When there is very little water tell the user and add 10 to the overall health.
                         reBox.setText("There is very little water");
                         health.addHealth(10);
                     } else if (re.badGrass()) {
+                        // When there is bad grass tell the user and ass 15 to the overall oxen health.
                         reBox.setText("The grass is inadequate.");
                         health.addOxenHealth(15);
                     }
                 }
+
+                // When the group is traveling between the months of May and September they can find wild fruit.
                 if (location.getMonth() >= 5 && location.getMonth() <= 9) {
+                    // When the group finds wild fruit tell the user and and add 20 pounds to the total food.
                     if (re.foundFruit()) {
                         reBox.setText("You found wild fruit");
                         wagon.setFood(wagon.getFood() + 20);

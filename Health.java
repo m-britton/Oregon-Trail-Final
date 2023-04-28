@@ -26,11 +26,18 @@ public class Health {
     private int totalPeople = 5;
     private double totalOxen = 0.0;
 
+    private int person1illnesses = 0;
+    private int person2illnesses = 0;
+    private int person3illnesses = 0;
+    private int person4illnesses = 0;
+    private int person5illnesses = 0;
+
     private boolean person1health = true;
     private boolean person2health = true;
     private boolean person3health = true;
     private boolean person4health = true;
     private boolean person5health = true;
+
 
     private String person1 = "Hattie";
     private String person2 = "";
@@ -51,17 +58,29 @@ public class Health {
     // Getters and Setters
 
     /**
-     * setHealth: sets the overall health of the group depending on what happens
-     * @param health -> the new value that health will take on
+     * setHealth: Sets the overall health of the group depending on what happens
+     * @param health -> The new value that health will take on
      */
     public void setHealth(int health) {
         this.health = health;
     }
 
+    /**
+     * setTotalOxen -> Sets the total number of oxen the group has with them on their journey.
+     * @param oxen -> The amount of oxen that the group has.
+     */
     public void setTotalOxen(int oxen){totalOxen = oxen;}
 
+    /**
+     * setOxenHealth -> Sets the overall health of the oxen.
+     * @param oxHealth -> The value representing the health of all the oxen.
+     */
     public void setOxenHealth(double oxHealth){oxenHealth = oxHealth;}
 
+    /**
+     * setSickOxen -> Tracks the number or oxen that are sick at any given time.
+     * @param sickOxen -> The value used to denote how many oxen are sick.
+     */
     public void setSickOxen(double sickOxen){this.sickOxen = sickOxen;}
 
     /**
@@ -72,13 +91,34 @@ public class Health {
         return health;
     }
 
+    /**
+     * getTotalOxen -> Accesses the total number of oxen the group has with them.
+     * @return -> The number of oxen that the group has.
+     */
     public double getTotalOxen(){return totalOxen;}
 
+    /**
+     * getOxenHealth -> Accesses the overall health of all the oxen with the group.
+     * @return -> The overall health of the oxen.
+     */
     public double getOxenHealth(){return oxenHealth;}
 
+    /**
+     * getSickOxen -> Accesses the number of oxen that are sick.
+     * @return -> The number of oxen that are sick.
+     */
     public double getSickOxen(){return sickOxen;}
 
+    /**
+     * getTotalPeople -> Accesses the total number of people in the group at any given time.
+     * @return -> The total number of people left in the group.
+     */
     public int getTotalPeople(){return totalPeople;}
+
+    /**
+     * getSickPeople -> Accesses the number of people that are sick at any given time.
+     * @return -> The number of people who are sick.
+     */
     public int getSickPeople(){return sickPeople;}
     // Other Methods
 
@@ -90,8 +130,12 @@ public class Health {
         this.health += health;
     }
 
-
+    /**
+     * addOxenHealth -> Adds an specified amount to the total overall health of the oxen.
+     * @param oxHealth -> The amount that is being added to the total oxen health.
+     */
     public void addOxenHealth(double oxHealth){oxenHealth += oxHealth;}
+
     /**
      * startOfDayHealth -> The overall health decreases by ten percent to simulate natural recovery
      * @return -> The health of the group after recovering from rest overnight
@@ -108,6 +152,10 @@ public class Health {
      * @return -> The health variable with the updated value based on the amount of food
      */
     public double healthFromFood(String rations){
+        /*
+         Check to see how the rations are set for the group, the smaller the ration the more that is added to the overall health
+         For filling rations add 0, meager add 2, bare bones add 6, and if there is no food add 6
+         */
         if(rations.equalsIgnoreCase("filling")){
             health += 0;
         }
@@ -131,6 +179,11 @@ public class Health {
      * @return -> The health variable with it's updated value, based on how fast the group moves.
      */
     public double healthFromPace(int pace){
+        /*
+        Check how the used has set the pace for the group, more health is added to the overall health as the group moves faster
+        0 means the group is resting and nothing is added, 1 means normal pace and 2 is added,
+        2 means 1.5x speed and 4 is added, anything faster than that and 6 is added
+         */
         if(pace == 0){
             health += 0;
         }
@@ -153,6 +206,13 @@ public class Health {
      * @return -> The updated health variable, based on how the weather is effecting the groups health.
      */
     public double healthFromWeather(String weather, double clothes){
+        /*
+        Check the temperature description and add the correlating amount of health.
+        For very hot weather add 2, hot weather add 1, warm or cool weather add 0.
+        For cold and very cold weather the amount added depends on how many clothes the group has for each person to stay warm.
+        The less the amount of clothes the more that is added to the health.
+         */
+
         if(weather.equalsIgnoreCase("very hot")){
             health += 2;
         }
@@ -200,7 +260,14 @@ public class Health {
      *             Ranges form Good Health to very poor health.
      */
     public String generalHealth(){
+        // create a string to display the overall health of the group to the user.
         String displayHealth;
+
+        /*
+        The higher the health variable the worse the group is doing.
+        For health less than 34 the group has good health, less than 65 the group has fair health,
+        less than 104 the group has poor health, less than 140 the group has very poor health, anything high means death is soon
+         */
         if(health <= 34.0){
             displayHealth = "Good Health";
         }
@@ -228,7 +295,11 @@ public class Health {
      * @param temp  -> Double used to tell what the temperature for the day is.
      */
     public void starveFreezeFactor(double foodRations, double clothing, double temp){
-        if(foodRations == 0.0 || (clothing <= 4 && temp <= 30)){
+        /*
+         When the group has no food, or an inadequate amount of clothing in cold weather the
+         freeze/starve factor goes up by 0.8 otherwise it is cut in half. It is then added to the overall health.
+         */
+        if(foodRations == 0.0 || (clothing <= 4 && temp <= 30)) {
             freezeStarveFactor += 0.8;
         }
         else{
@@ -267,8 +338,11 @@ public class Health {
      *          is an oxen already sick or injured then that oxen dies and the group loses one of it's oxen.
      */
     public void sickOx(){
+        // When an oxen gets sick they are reduced to half an oxen and the total oxen drop by the same amount.
         sickOxen += 0.5;
         totalOxen -= sickOxen;
+
+        // When there is 1 full oxen sick the oxen dies and the amount of sick oxen is rest to zero
         if(sickOxen == 1){
             sickOxen = 0.0;
         }
@@ -280,9 +354,12 @@ public class Health {
      * @return -> The disease that has been randomly selected.
      */
     public String randomDisease(){
+        // create a string to hold a randomly chosen disease, and create a random value to determine the disease
         String disease = "";
         Random choice = new Random();
         int randomInt = choice.nextInt(6) + 1;
+
+        // The chosen disease is based on the randomly generated number and found in the switch statement
         switch(randomInt){
             case 1: disease = "Exhaustion"; break;
             case 2: disease = "Typhoid"; break;
@@ -301,12 +378,15 @@ public class Health {
      * @param person -> A string representing the person that is currently being checked for underlying illness.
      * @return -> A string stating if the person has died or not.
      */
-    public String personDeath(boolean personHealth, String person){
+    public String personDeath(int personHealth, String person){
+        // Create a string to hold the message that someone in the group has died
         String message = "";
-        if(!personHealth){
+
+        // If the person has contracted 3 diseases then that person will die and the group is decreased by 1
+        if(personHealth == 3){
             message = person + " Has died.";
+            totalPeople -= 1;
         }
-        totalPeople -= 1;
         return message;
     }
 

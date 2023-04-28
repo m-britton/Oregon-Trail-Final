@@ -37,8 +37,15 @@ public class Weather {
      *              temperature to create a new different each day.
      */
     public void setRandomAdd(){
+        // Create a variable to determine how much the temperature will vary from the average temperature.
         Random num = new Random();
-        randomAdd = -20 + num.nextInt(20 + 1);
+        randomAdd = num.nextInt(20 + 1);
+
+        // There is a 50/50 chance that the random add is positive or negative, create a variable to determine positive or negative.
+        double plusMinus = Math.random();
+        if(plusMinus < 0.5){
+            randomAdd *= -1;
+        }
     }
 
     /**
@@ -357,6 +364,10 @@ public class Weather {
         return realTemp;
     }
 
+    /**
+     * getRealTemp -> Accesses the actual temperature for the day.
+     * @return -> The daily temperature
+     */
     public int getRealTemp(){return realTemp;}
 
     /**

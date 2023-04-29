@@ -60,12 +60,21 @@ public class Shop {
 
 
 
-    public double calcBoughtItem(String categoryRequest, int inputNumber){
+    public double calcBoughtItem(String categoryRequest, int inputNumber, String Town){
 
         double number = 0;
         buying = true;
+        
+        
+        if (Town == 
+        
+        
+        
+        
+        
+        
 
-        if (categoryRequest.equals("Food") || categoryRequest.equals("1")){
+        if (categoryRequest.equalsIgnoreCase("Food") || categoryRequest.equals("1")){
 
             food_Price = food_Price + (.10 * inputNumber);
 
@@ -73,13 +82,13 @@ public class Shop {
 
             number = food_Price;
 
-        } else if(categoryRequest.equals("Clothing") || categoryRequest.equals("2")){
+        } else if(categoryRequest.equalsIgnoreCase("Clothing") || categoryRequest.equals("2")){
 
             clothing_Price = clothing_Price + (.2 * inputNumber);
 
             number = clothing_Price;
 
-        } else if(categoryRequest.equals("Weapons") || categoryRequest.equals("3")){
+        } else if(categoryRequest.equalsIgnoreCase("Weapons") || categoryRequest.equals("3")){
 
             weapons_Price = weapons_Price + (20 * inputNumber);
 
@@ -87,73 +96,73 @@ public class Shop {
 
             number = weapons_Price;
 
-        } else if(categoryRequest.equals("Oxen") || categoryRequest.equals("4")){
+        } else if(categoryRequest.equalsIgnoreCase("Oxen") || categoryRequest.equals("4")){
 
             oxen_Price = oxen_Price + (50 * inputNumber);
 
             number = oxen_Price;
 
-        } else if(categoryRequest.equals("Spare Wagon Wheel") || categoryRequest.equals("5")){
+        } else if(categoryRequest.equalsIgnoreCase("Spare Wagon Wheel") || categoryRequest.equals("5")){
 
             spareWagonWheel_Price = spareWagonWheel_Price + (8 * inputNumber);
 
             number = spareWagonWheel_Price;
 
-        } else if(categoryRequest.equals("Spare Wagon Axel") || categoryRequest.equals("6")){
+        } else if(categoryRequest.equalsIgnoreCase("Spare Wagon Axel") || categoryRequest.equals("6")){
 
             spareWagonAxel_Price = spareWagonAxel_Price + (3 * inputNumber);
 
             number = spareWagonAxel_Price;
 
-        }else if (categoryRequest.equals("Spare Wagon Tongues") || categoryRequest.equals("7")){
+        }else if (categoryRequest.equalsIgnoreCase("Spare Wagon Tongues") || categoryRequest.equals("7")){
 
             spareWagonTongues_Price = spareWagonTongues_Price + (3 * inputNumber);
 
             number = spareWagonTongues_Price;
 
-        }else if (categoryRequest.equals("Medical Supply Box") || categoryRequest.equals("8")){
+        }else if (categoryRequest.equalsIgnoreCase("Medical Supply Box") || categoryRequest.equals("8")){
 
             medicalSupplyBox_Price = medicalSupplyBox_Price + (1.50 * inputNumber);
 
             number = medicalSupplyBox_Price;
 
-        }else if (categoryRequest.equals("Sewing Kit") || categoryRequest.equals("9")){
+        }else if (categoryRequest.equalsIgnoreCase("Sewing Kit") || categoryRequest.equals("9")){
 
             sewingKit_Price = sewingKit_Price + (0.50 * inputNumber);
 
             number = sewingKit_Price;
 
-        }else if (categoryRequest.equals("Fire Starting Kit") || categoryRequest.equals("10")){
+        }else if (categoryRequest.equalsIgnoreCase("Fire Starting Kit") || categoryRequest.equals("10")){
 
             fireStartingKit_Price = fireStartingKit_Price + (0.25 * inputNumber);
 
             number = fireStartingKit_Price;
 
-        }else if (categoryRequest.equals("Kids Toys") || categoryRequest.equals("11")){
+        }else if (categoryRequest.equalsIgnoreCase("Kids Toys") || categoryRequest.equals("11")){
 
             kidsToys_Price = kidsToys_Price + (0.05 * inputNumber);
 
             number = kidsToys_Price;
 
-        }else if (categoryRequest.equals("Family Keepsakes") || categoryRequest.equals("12")){
+        }else if (categoryRequest.equalsIgnoreCase("Family Keepsakes") || categoryRequest.equals("12")){
 
             familyKeepsakes_Price = 0;
 
             number = familyKeepsakes_Price;
 
-        }else if (categoryRequest.equals("Seed packeges") || categoryRequest.equals("13")){
+        }else if (categoryRequest.equalsIgnoreCase("Seed packeges") || categoryRequest.equals("13")){
 
             seedPackeges_Price = seedPackeges_Price + (0.01 * inputNumber);
 
             number = seedPackeges_Price;
 
-        }else if (categoryRequest.equals("Shovels") || categoryRequest.equals("14")){
+        }else if (categoryRequest.equalsIgnoreCase("Shovels") || categoryRequest.equals("14")){
 
             shovels_Price = shovels_Price + (2.50 * inputNumber);
 
             number = shovels_Price;
 
-        }else if (categoryRequest.equals("Cooking items") || categoryRequest.equals("15")){
+        }else if (categoryRequest.equalsIgnoreCase("Cooking items") || categoryRequest.equals("15")){
 
             cookingItems_Price = cookingItems_Price + (1.50 * inputNumber);
 

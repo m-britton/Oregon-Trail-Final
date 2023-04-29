@@ -104,6 +104,10 @@ public class Location {
         this.distanceToLandmark = distance;
     }
 
+    public void setPace(int pace){
+        this.pace = pace;
+    }
+
     //Getters
     public int getLocation()
     {
@@ -357,7 +361,7 @@ public class Location {
             setPace *= 1;
 
         }
-        else if (pace == 2){ //Strenouse pace
+        else if (pace == 2){ //Strenuous pace
             setPace *= 1.5;
 
         }

@@ -211,8 +211,8 @@ public class Shop {
 
         if (userInput.equals("Food") || userInput.equals("1")) {
 
-            input = "You are buying food. Food is: " + (.10 * amount) + " coffee," + (.02 * amount) + " flour," (.05* amount) + " bacon per pd in " 
-                + town + \n + " How much do you want to buy: ";
+            input = "You are buying food. Food is: " + (.10 * amount) + " coffee," + (.02 * amount) + " flour," + (.05* amount) + " bacon per pd. " 
+                + \n + " How much do you want to buy: ";
 
         } else if (userInput.equals("Clothing") || userInput.equals("2")) {
 

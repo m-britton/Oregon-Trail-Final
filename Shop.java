@@ -60,23 +60,48 @@ public class Shop {
 
 
 
-    public double calcBoughtItem(String categoryRequest, int inputNumber, String Town){
+    public double calcBoughtItem(String categoryRequest, int inputNumber, String town){
 
         double number = 0;
+        double amount = 0;
         buying = true;
         
-        
-        if (Town == 
-        
-        
-        
-        
-        
-        
+       
+        if (town.equalsIgnoreCase("Independence")){
+            
+            amount = 1;
+        }
+        else if (town.equalsIgnoreCase("Laramie")){
+            
+            amount = 1.25;
+         
+        }
+        else if (town.equalsIgnoreCase("Fort Bridger")){
+            
+            amount = 1.50;   
+        }
+        else if (town.equalsIgnoreCase("Fort Hall")){
+            
+            amount = 1.75;   
+        }
+        else if (town.equalsIgnoreCase("Fort Boise")){
+            
+            amount = 2;   
+        }
+        else if (town.equalsIgnoreCase("Fort walla Walla")){
+            
+            amount = 2.25;   
+        }
+        else if (town.equalsIgnoreCase("Oregon City")){
+            
+            amount = 2.5;   
+        }
+       
 
+        
         if (categoryRequest.equalsIgnoreCase("Food") || categoryRequest.equals("1")){
 
-            food_Price = food_Price + (.10 * inputNumber);
+            food_Price = food_Price + ((.10 * amount) * inputNumber);
 
             //Must add .10 coffee, .02 flour, .05 bacon
 
@@ -84,13 +109,13 @@ public class Shop {
 
         } else if(categoryRequest.equalsIgnoreCase("Clothing") || categoryRequest.equals("2")){
 
-            clothing_Price = clothing_Price + (.2 * inputNumber);
+            clothing_Price = clothing_Price + ((.2 * amount) * inputNumber);
 
             number = clothing_Price;
 
         } else if(categoryRequest.equalsIgnoreCase("Weapons") || categoryRequest.equals("3")){
 
-            weapons_Price = weapons_Price + (20 * inputNumber);
+            weapons_Price = weapons_Price + ((20 * amount) * inputNumber);
 
             //Must add $20 rifle, $10 shotgun, $5 shots/bullets.
 
@@ -98,49 +123,49 @@ public class Shop {
 
         } else if(categoryRequest.equalsIgnoreCase("Oxen") || categoryRequest.equals("4")){
 
-            oxen_Price = oxen_Price + (50 * inputNumber);
+            oxen_Price = oxen_Price + ((50* amount) * inputNumber);
 
             number = oxen_Price;
 
         } else if(categoryRequest.equalsIgnoreCase("Spare Wagon Wheel") || categoryRequest.equals("5")){
 
-            spareWagonWheel_Price = spareWagonWheel_Price + (8 * inputNumber);
+            spareWagonWheel_Price = spareWagonWheel_Price + ((8 * amount) * inputNumber);
 
             number = spareWagonWheel_Price;
 
         } else if(categoryRequest.equalsIgnoreCase("Spare Wagon Axel") || categoryRequest.equals("6")){
 
-            spareWagonAxel_Price = spareWagonAxel_Price + (3 * inputNumber);
+            spareWagonAxel_Price = spareWagonAxel_Price + ((3 * amount) * inputNumber);
 
             number = spareWagonAxel_Price;
 
         }else if (categoryRequest.equalsIgnoreCase("Spare Wagon Tongues") || categoryRequest.equals("7")){
 
-            spareWagonTongues_Price = spareWagonTongues_Price + (3 * inputNumber);
+            spareWagonTongues_Price = spareWagonTongues_Price + ((3 * amount) * inputNumber);
 
             number = spareWagonTongues_Price;
 
         }else if (categoryRequest.equalsIgnoreCase("Medical Supply Box") || categoryRequest.equals("8")){
 
-            medicalSupplyBox_Price = medicalSupplyBox_Price + (1.50 * inputNumber);
+            medicalSupplyBox_Price = medicalSupplyBox_Price + ((1.50 * amount) * inputNumber);
 
             number = medicalSupplyBox_Price;
 
         }else if (categoryRequest.equalsIgnoreCase("Sewing Kit") || categoryRequest.equals("9")){
 
-            sewingKit_Price = sewingKit_Price + (0.50 * inputNumber);
+            sewingKit_Price = sewingKit_Price + ((0.50 * amount) * inputNumber);
 
             number = sewingKit_Price;
 
         }else if (categoryRequest.equalsIgnoreCase("Fire Starting Kit") || categoryRequest.equals("10")){
 
-            fireStartingKit_Price = fireStartingKit_Price + (0.25 * inputNumber);
+            fireStartingKit_Price = fireStartingKit_Price + ((0.25 * amount) * inputNumber);
 
             number = fireStartingKit_Price;
 
         }else if (categoryRequest.equalsIgnoreCase("Kids Toys") || categoryRequest.equals("11")){
 
-            kidsToys_Price = kidsToys_Price + (0.05 * inputNumber);
+            kidsToys_Price = kidsToys_Price + ((0.05 * amount) * inputNumber);
 
             number = kidsToys_Price;
 
@@ -152,19 +177,19 @@ public class Shop {
 
         }else if (categoryRequest.equalsIgnoreCase("Seed packeges") || categoryRequest.equals("13")){
 
-            seedPackeges_Price = seedPackeges_Price + (0.01 * inputNumber);
+            seedPackeges_Price = seedPackeges_Price + ((0.01 * amount) * inputNumber);
 
             number = seedPackeges_Price;
 
         }else if (categoryRequest.equalsIgnoreCase("Shovels") || categoryRequest.equals("14")){
 
-            shovels_Price = shovels_Price + (2.50 * inputNumber);
+            shovels_Price = shovels_Price + ((2.50 * amount) * inputNumber);
 
             number = shovels_Price;
 
         }else if (categoryRequest.equalsIgnoreCase("Cooking items") || categoryRequest.equals("15")){
 
-            cookingItems_Price = cookingItems_Price + (1.50 * inputNumber);
+            cookingItems_Price = cookingItems_Price + ((1.50 * amount) * inputNumber);
 
             //$1 Coffee Mill, $1.50 frying pan, 0.25 cents pan
 
@@ -178,7 +203,7 @@ public class Shop {
     }
 
 
-    public String buyItem(String userInput) {
+    public String buyItem(String userInput , String town) {
 
         buying = false;
         otherinput = userInput;

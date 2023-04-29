@@ -9,7 +9,7 @@
  *              Thus, the healthier the group is the lower the value of the health variable.
  */
 
-package com.example.mp2oregontrailmvp;
+package com.example.mvpfororegontrail;
 
 import java.util.Random;
 
@@ -26,11 +26,11 @@ public class Health {
     private int totalPeople = 5;
     private double totalOxen = 0.0;
 
-    private int person1illnesses = 0;
-    private int person2illnesses = 0;
-    private int person3illnesses = 0;
-    private int person4illnesses = 0;
-    private int person5illnesses = 0;
+    private int person1daysSick = 0;
+    private int person2daysSick = 0;
+    private int person3daysSick = 0;
+    private int person4daysSick = 0;
+    private int person5daysSick = 0;
 
     private boolean person1health = true;
     private boolean person2health = true;
@@ -312,12 +312,60 @@ public class Health {
      * trackDisease -> Tracks the number of days an individual has had their disease, up to ten days.
      * @param person -> The person that has contracted the disease.
      */
-    public void trackDisease(boolean person){
-        for(int days = 0; days < 10; days++){
-            person = false;
+    public void setDaysSick(String person){
+        if(person.equalsIgnoreCase(person1)){
+            person1daysSick += 10;
         }
-        person = true;
-        sickPeople -= 1;
+        else if(person.equalsIgnoreCase(person2)){
+            person2daysSick += 10;
+        }
+        else if(person.equalsIgnoreCase(person3)){
+            person3daysSick += 10;
+        }
+        else if(person.equalsIgnoreCase(person4)){
+            person4daysSick += 10;
+        }
+        else{
+            person5daysSick += 10;
+        }
+    }
+
+    public void resetDaysSick(){
+        if(person1daysSick > 0){
+            person1daysSick -= 1;
+            person1health = false;
+        }
+        else{
+            person1health = true;
+        }
+        if(person2daysSick > 0){
+            person2daysSick -= 1;
+            person2health = false;
+        }
+        else{
+            person2health = true;
+        }
+        if(person3daysSick > 0){
+            person3daysSick -= 1;
+            person3health = false;
+        }
+        else{
+            person3health = true;
+        }
+        if(person4daysSick > 0){
+            person4daysSick -= 1;
+            person4health = false;
+        }
+        else{
+            person4health = true;
+        }
+        if(person5daysSick > 0){
+            person5daysSick -= 1;
+            person5health = false;
+        }
+        else{
+            person5health = true;
+        }
     }
 
     /**

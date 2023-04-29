@@ -1,5 +1,4 @@
-
-package com.example.mp2oregontrailmvp;
+package com.example.mvpfororegontrail;
 
 public class Location {
 
@@ -17,9 +16,9 @@ public class Location {
     private int landmarksVisited;
 
     //These distance variables is to determine if either landmark or atRiver is true. This should be changed in the main activity every time a landmark or river is reached
-    private int distanceToTown;
-    private int distanceToRiver;
-    private int distanceToLandmark;
+    private double distanceToTown;
+    private double distanceToRiver;
+    private double distanceToLandmark;
 
     private int zone = 0;
     private int pace = 1;
@@ -92,15 +91,15 @@ public class Location {
     }
 
     //Setters for the distance variables. Should be reset every time one is reached.
-    public void setDistanceToTown(int distance)
+    public void setDistanceToTown(double distance)
     {
         this.distanceToTown = distance;
     }
-    public void setDistanceToRiver(int distance)
+    public void setDistanceToRiver(double distance)
     {
         this.distanceToRiver = distance;
     }
-    public void setDistanceToLandmark(int distance)
+    public void setDistanceToLandmark(double distance)
     {
         this.distanceToLandmark = distance;
     }
@@ -134,15 +133,15 @@ public class Location {
     {
         return this.landmarksVisited;
     }
-    public int getDistanceToTown()
+    public double getDistanceToTown()
     {
         return this.distanceToTown;
     }
-    public int getDistanceToRiver()
+    public double getDistanceToRiver()
     {
         return this.distanceToRiver;
     }
-    public int getDistanceToLandmark()
+    public double getDistanceToLandmark()
     {
         return this.distanceToLandmark;
     }
@@ -371,11 +370,11 @@ public class Location {
 
         }
         if (oxen < 4){
-            setPace = oxen / 4;
+            setPace *= oxen / 4;
 
         }
         if(sickPeople >= 1){
-            setPace = sickPeople * .10;
+            setPace *= sickPeople * .10;
 
         }
         if(snow >= 30){
@@ -385,5 +384,4 @@ public class Location {
 
         return setPace;
     }
-
 }

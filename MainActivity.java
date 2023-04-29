@@ -1,5 +1,4 @@
-package com.example.mp2oregontrailmvp;
-
+package com.example.mvpfororegontrail;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -108,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     shopDisplay.setText(boughtItem);
                 } else {
                     shop.calcBoughtItem(shop.otherinput, Integer.parseInt(input));
- //                   shopDisplay.setText(shop.storeShelf);
+                    //                   shopDisplay.setText(shop.storeShelf);
                 }
             }
 
@@ -149,11 +148,11 @@ public class MainActivity extends AppCompatActivity {
                     checks if the player has reached a river, town, or landmark.
                     Decreases distance of player form river, town, and landmarks.
                 */
-                location.locationFromPace(location.getPace(), health.getTotalOxen(), health.getSickPeople(), weather.getTotalSnow(), location.whatLandmark());
+                double pace = location.locationFromPace(location.getPace(), health.getTotalOxen(), health.getSickPeople(), weather.getTotalSnow(), location.whatLandmark());
                 location.incrementDay();
-                location.setDistanceToLandmark(location.getDistanceToLandmark() - 20);
-                location.setDistanceToRiver(location.getDistanceToRiver() - 20);
-                location.setDistanceToTown(location.getDistanceToTown() - 20);
+                location.setDistanceToLandmark(location.getDistanceToLandmark() - pace);
+                location.setDistanceToRiver(location.getDistanceToRiver() - pace);
+                location.setDistanceToTown(location.getDistanceToTown() - pace);
 
                 location.atLandmark();
 

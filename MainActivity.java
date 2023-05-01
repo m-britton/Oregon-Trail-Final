@@ -1,4 +1,5 @@
-package com.example.mvpfororegontrail;
+package com.example.mp2oregontrailmvp;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -24,14 +25,11 @@ public class MainActivity extends AppCompatActivity {
     Shop shop = new Shop();
     Weather weather = new Weather();
     Wagon wagon = new Wagon(shop.food_Price / .1, shop.clothing_Price / .2, shop.weapons_Price / 20, shop.oxen_Price / 50, shop.spareWagonWheel_Price / 8, shop.spareWagonAxel_Price / 3, shop.spareWagonTongues_Price / 3, shop.medicalSupplyBox_Price / 1.5, shop.sewingKit_Price / .50, shop.fireStartingKit_Price / .25, shop.kidsToys_Price / .05, 1, shop.seedPackeges_Price / .01, shop.shovels_Price / 2.5, shop.cookingItems_Price / 1.5);
-    Story story = new Story();
     MediaPlayer mp;
     MediaPlayer st;
 
     public boolean wagonMade = true;
     public boolean mtIsPlaying = false;
-    public double pace;
-    public int resetDay;
 
     String rations = "";
 
@@ -53,12 +51,11 @@ public class MainActivity extends AppCompatActivity {
         final Button enterShop = findViewById(R.id.enterShop);
         final Button leaveShop = findViewById(R.id.leaveShop);
         final TextView weatherBox = findViewById(R.id.weatherBox);
-
         //This is to change background color in order to do so use .setBackgroundColor()
         final LinearLayout background = findViewById(R.id.linear);
 
         //Array of images, images made be added as needed
-        final int images[] = {R.drawable.shoppingpic, R.drawable.traveling, R.drawable.hattiecampbell, R.drawable.oregonstart, R.drawable.chimneyrock, R.drawable.forthall, R.drawable.fortboise, R.drawable.fortkearney, R.drawable.fortwallawalla, R.drawable.laramie, R.drawable.sodaspring, R.drawable.southpass, R.drawable.thedalles, R.drawable.oregoncity};
+        final int a[] = {R.drawable.shoppingpic, R.drawable.traveling, R.drawable.hattiecampbell, R.drawable.oregonstart, R.drawable.chimneyrock, R.drawable.forthall, R.drawable.fortboise, R.drawable.fortkearney, R.drawable.fortwallawalla, R.drawable.laramie, R.drawable.sodaspring, R.drawable.southpass, R.drawable.thedalles, R.drawable.oregoncity};
 
         //Creates a media player for main theme
         mp = MediaPlayer.create(this, R.raw.maintune);
@@ -111,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     shopDisplay.setText(boughtItem);
                 } else {
                     shop.calcBoughtItem(shop.otherinput, Integer.parseInt(input));
-                    //                   shopDisplay.setText(shop.storeShelf);
+ //                   shopDisplay.setText(shop.storeShelf);
                 }
             }
 
@@ -152,11 +149,11 @@ public class MainActivity extends AppCompatActivity {
                     checks if the player has reached a river, town, or landmark.
                     Decreases distance of player form river, town, and landmarks.
                 */
-                pace = location.locationFromPace(location.getPace(), health.getTotalOxen(), health.getSickPeople(), weather.getTotalSnow(), location.whatLandmark());
+                location.locationFromPace(location.getPace(), health.getTotalOxen(), health.getSickPeople(), weather.getTotalSnow(), location.whatLandmark());
                 location.incrementDay();
-                location.setDistanceToLandmark(location.getDistanceToLandmark() - pace);
-                location.setDistanceToRiver(location.getDistanceToRiver() - pace);
-                location.setDistanceToTown(location.getDistanceToTown() - pace);
+                location.setDistanceToLandmark(location.getDistanceToLandmark() - 20);
+                location.setDistanceToRiver(location.getDistanceToRiver() - 20);
+                location.setDistanceToTown(location.getDistanceToTown() - 20);
 
                 location.atLandmark();
 
@@ -182,9 +179,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (location.getAtRiver()) {
                     display.setText("You are at a river");
-                    if(re.safeCrossing()){
-
-                    }
                     location.setDistanceToRiver(100);
                     location.setAtRiver(false);
                 }
@@ -198,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                 // restore 10 percent of the total health for resting over night
                 health.startOfDayHealth();
 
-                // A party member is onl sick for ten days, each day someone is sick gets taken off their total days sick
+                // A party member is only sick for ten days, each day the total numbers of days sick is decreased
                 health.resetDaysSick();
 
                 /*
@@ -213,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
                     health.sickPerson(person);
                     String sickMessage = person + " has contracted " + disease;
                     health.addHealth(20);
+                    healthBox.setText(health.personDeath(health.getNumberIllnesses(person), person));
                     health.setDaysSick(person);
                 }
 
@@ -241,32 +236,24 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if (re.wrongTrail()) {
                     reBox.setText("OH-NO you took the wrong trail");
-                    resetDay = location.getDay() + 3;
-                    location.setPace(0);
                 }
                 else if (re.lostTrail()) {
                     reBox.setText("You lost the trail");
-                    resetDay = location.getDay() + 5;
-                    pace = 0;
                 }
                 else if (re.wagonFire()) {
                     reBox.setText("THe wagon caught on fire!!");
                 }
                 else if (re.lostPerson()) {
                     reBox.setText("A member of your group is missing");
-                    resetDay = location.getDay() + 4;
-                    pace = 0;
                 }
                 else if (re.lostOxen()) {
                     reBox.setText("An oxen has wandered off.");
-                    resetDay = location.getDay() + 2;
-                    pace = 0;
                 }
                 else if (re.foundWagon()) {
                     reBox.setText("You found an abandoned wagon");
                 }
                 else if (re.robbedAtNight()) {
-                    reBox.setText("You got robbed in the middle of the night");
+                    reBox.setText("You got robbed in the niddle of the night");
                 }
                 else {
                     reBox.setText("It was a normal day!");
@@ -315,9 +302,7 @@ public class MainActivity extends AppCompatActivity {
                 health.healthFromPace(location.getPace());
                 health.healthFromWeather(weather.displayTemperature(weather.getRealTemp()), wagon.getClothing());
 
-                if(wagon.getFood() > 0){
-                    wagon.setFood(wagon.getFood() - 20);
-                }
+                wagon.setFood(wagon.getFood() - 20);
 
                 // display to the user the overall health of the entire group
                 healthBox.setText(health.generalHealth());

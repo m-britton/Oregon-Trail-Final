@@ -11,7 +11,7 @@ public class Story {
             this.townStory = "Fort Kearney Not finished";
 
         }
-        else if (town.equalsIgnoreCase("Fort Laramie")){
+        else if (town.equalsIgnoreCase("Laramie")){
 
             this.townStory = "Welcome to Fort Laramie, originally known as Fort William in 1834," +
                     " it was " + "located where the North Platte River meets the Laramie River." +

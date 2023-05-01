@@ -11,6 +11,8 @@
 
 package com.example.mp2oregontrailmvp;
 
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class Health {
@@ -44,6 +46,7 @@ public class Health {
     private boolean person4health = true;
     private boolean person5health = true;
 
+    private ArrayList<String> deadPeople = new ArrayList<String>();
 
     private String person1 = "Hattie";
     private String person2 = "";
@@ -463,6 +466,7 @@ public class Health {
         // If the person has contracted 3 diseases then that person will die and the group is decreased by 1
         if(personHealth == 3){
             message = person + " Has died.";
+            deadPeople.add(person);
             totalPeople -= 1;
             sickPeople -= 1;
         }
@@ -484,6 +488,11 @@ public class Health {
             case 3: person = person3; break;
             case 4: person = person4; break;
             case 5: person = person5; break;
+        }
+        for(int i = 0; i < deadPeople.size(); i++){
+            if(Objects.equals(person, deadPeople.get(i))){
+                randomPerson();
+            }
         }
         return person;
     }

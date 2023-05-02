@@ -8,7 +8,14 @@ public class Story {
 
         if(town.equalsIgnoreCase("Fort Kearney")){
 
-            this.townStory = "Fort Kearney Not finished";
+                        this.townStory = "You made it to your first town, Fort Kearney. Fort Kearny was a " +
+                    "historic outpost of the United States Army founded in 1848 in the western " +
+                    "U.S. during the middle and late 19th century. The fort was named after Col. " +
+                    "and later General Stephen Watts Kearny. The fort was built in response to the " +
+                    "growth of overland emigration to Oregon after 1845. Despite its lack of " +
+                    "fortifications, Fort Kearny served as way station, sentinel post, supply depot, " +
+                    "and message center for 49'ers bound for California and homeseekers traveling " +
+                    "to California, Oregon and the Pacific Northwest.\n";
 
         }
         else if (town.equalsIgnoreCase("Laramie")){

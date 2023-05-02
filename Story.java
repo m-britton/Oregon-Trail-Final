@@ -1,7 +1,6 @@
-package com.example.mvpfororegontrail;
+package com.example.mp2oregontrailmvp;
 
 public class Story {
-
     private String townStory  =  "No story for town";
     private String landmarkStory = "No story for landmark";
 
@@ -10,29 +9,21 @@ public class Story {
 
         if(town.equalsIgnoreCase("Fort Kearney")){
 
-            this.townStory = "You made it to your first town, Fort Kearney. " +
-                    "Fort Kearny was a historic outpost of the United States Army " +
-                    "founded in 1848 in the western U.S. during the middle and late 19th " +
-                    "century. The fort was named after Col. and later General Stephen Watts " +
-                    "Kearny. The fort was built in response to the growth of overland emigration " +
-                    "to Oregon after 1845. Despite its lack of fortifications, Fort Kearny " +
-                    "served as way station, sentinel post, supply depot, and message center " +
-                    "for 49'ers bound for California and homeseekers traveling to California, " +
-                    "Oregon and the Pacific Northwest.";
+            this.townStory = "Fort Kearney Not finished";
 
         }
-        else if (town.equalsIgnoreCase("Fort Laramie")){
+        else if (town.equalsIgnoreCase("Laramie")){
 
-            this.townStory = "Welcome to Laramie, originally known as Fort William in 1834," +
+            this.townStory = "Welcome to Fort Laramie, originally known as Fort William in 1834," +
                     " it was " + "located where the North Platte River meets the Laramie River." +
                     " It was " + "started by fur traders and in 1849 the US Military purchased" +
                     " Fort William" + " and renamed it after a well known French fur trader" +
-                    " Jacques La Ramie." + " During the time of the Oregon Trail this town" +
+                    " Jacques La Ramie." + " During the time of the Oregon Trail this form" +
                     " was used to supply and " + "protect emigrant wagons. As time went on " +
                     "Fort Laramie became an important" + " part of the colonization of western" +
-                    " America. The town also served as a " + "link in the transcontinental " +
+                    " America. The fort also served as a " + "link in the transcontinental " +
                     "telegraph network, a stop for the Pony " + "Express, and a base during " +
-                    "the High Plains Indian Wars. As of 1937 " + "Laramie is protected as" +
+                    "the High Plains Indian Wars. As of 1937 Fort " + "Laramie is protected as" +
                     " a National Monument under the National Park " + "Service.\n";
 
         }

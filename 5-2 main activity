@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     Health overallHealth = new Health();
     Location location = new Location(0, 1, 1, 140, 100, 300);
     Shop shop = new Shop();
+    Story story = new Story();
     Wagon wagon = new Wagon(shop.food_Price/.1, shop.clothing_Price/.2,shop.weapons_Price/20,shop.oxen_Price/50,shop.spareWagonWheel_Price/8,shop.spareWagonAxel_Price/3, shop.spareWagonTongues_Price/3, shop.medicalSupplyBox_Price/1.5, shop.sewingKit_Price/.50, shop.fireStartingKit_Price/.25, shop.kidsToys_Price/.05, 1, shop.seedPackeges_Price/.01, shop.shovels_Price/2.5, shop.cookingItems_Price/1.5);
     MediaPlayer mp;
     MediaPlayer st;
@@ -54,11 +55,14 @@ public class MainActivity extends AppCompatActivity {
         final ImageView title = findViewById(R.id.fullImage);
         final Button play = findViewById(R.id.playGame);
         final Button credits = findViewById(R.id.credits);
+        final TextView storyDisplay = findViewById(R.id.storyDisplay);
         //This is to change background color in order to do so use .setBackgroundColor()
         final LinearLayout background = findViewById(R.id.linear);
 
         //Array of images, images made be added as needed
-        final int a[] = {R.drawable.shoppingpic, R.drawable.hattiecampbell, R.drawable.oregonstart, R.drawable.fortkearney, R.drawable.credits, R.drawable.river};
+        final int a[] = {R.drawable.shoppingpic, R.drawable.hattiecampbell, R.drawable.oregonstart, R.drawable.fortkearney, R.drawable.credits, R.drawable.river
+        , R.drawable.hall,R.drawable.boise,R.drawable.laramie,R.drawable.win,R.drawable.walla,R.drawable.bridger,R.drawable.chimney,R.drawable.rock,
+        R.drawable.southpass,R.drawable.sodasprings,R.drawable.blue,R.drawable.dalles};
 
         //Creates a media player for main theme
         mp = MediaPlayer.create(this, R.raw.mt);
@@ -72,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
         play.bringToFront();
         credits.bringToFront();
 
-
+        //Makes display invisible until used
+        display.setVisibility(View.INVISIBLE);
 
         //When clicked removes title screen and prompts user to enter shop
         play.setOnClickListener(new View.OnClickListener()  {
@@ -84,16 +89,21 @@ public class MainActivity extends AppCompatActivity {
                 play.setVisibility(View.INVISIBLE);
                 credits.setVisibility(View.INVISIBLE);
                 leaveShop.setVisibility(View.INVISIBLE);
+                storyDisplay.setVisibility(View.INVISIBLE);
 
                 //allows player to enter shop if at a town
                 if(location.getAtTown())
                 {
                     enterShop.setVisibility(View.VISIBLE);
                 }
-                //Hides next day button if not at a river
+                //Hides next day button if not at a river. but reveals it if at river
                 if(!location.getAtRiver())
                 {
                     nextDay.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    nextDay.setVisibility(View.VISIBLE);
                 }
 
                 location.setAtLandmark(false);
@@ -127,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             reBox.setVisibility(View.INVISIBLE);
             date.setVisibility(View.INVISIBLE);
             healthBox.setVisibility(View.INVISIBLE);
+            foodBox.setVisibility(View.INVISIBLE);
 
             leaveShop.setVisibility(View.VISIBLE);
             User_InputBox.setVisibility(View.VISIBLE);
@@ -150,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 confirm.setVisibility(View.INVISIBLE);
                 User_InputBox.setVisibility(View.INVISIBLE);
                 nextDay.setVisibility(View.VISIBLE);
+                foodBox.setVisibility(View.VISIBLE);
 
                 //Changes back to Hattie's pic
                 picture.setImageResource(R.drawable.hattiecampbell);
@@ -223,11 +235,34 @@ public class MainActivity extends AppCompatActivity {
                 location.atLandmark();
 
 
-                //Displays town image and message if the person is at a town. If true resets distance to next landmark.
+                //Displays town image if the person is at a town based upon which town. If true resets distance to next landmark.
                 if (location.getAtTown()) {
                     display.setText("You are at town " + location.whatTown());
 
-                    title.setImageResource(R.drawable.fortkearney);
+                    switch(location.getTownsVisited()) {
+                        case 1:
+                            title.setImageResource(R.drawable.fortkearney);
+                            break;
+                        case 2:
+                            title.setImageResource(R.drawable.laramie);
+                            break;
+                        case 3:
+                            title.setImageResource(R.drawable.bridger);
+                            break;
+                        case 4:
+                            title.setImageResource(R.drawable.hall);
+                            break;
+                        case 5:
+                            title.setImageResource(R.drawable.boise);
+                            break;
+                        case 6:
+                            title.setImageResource(R.drawable.walla);
+                            break;
+                        case 7:
+                            title.setImageResource(R.drawable.win);
+                        default:
+                            break;
+                    }
                     title.setVisibility(View.VISIBLE);
                     play.setVisibility(View.VISIBLE);
                     play.setText("Enter Town");
@@ -236,16 +271,22 @@ public class MainActivity extends AppCompatActivity {
                     tt.start();
 
                     title.bringToFront();
+                    storyDisplay.setVisibility(View.VISIBLE);
+                    storyDisplay.bringToFront();
+                    storyDisplay.setText(story.storyTowns(location.whatTown()));
+
                     location.setDistanceToTown(200);
-                    //location.setAtTown(false);
                 }
+                //If the player is at a river changes gui accordingly
                 if (location.getAtRiver()) {
                     display.setText("You are at a river");
 
                     title.setImageResource(R.drawable.river);
+
                     title.setVisibility(View.VISIBLE);
                     play.setVisibility(View.VISIBLE);
                     play.setText("Cross River");
+                    nextDay.setVisibility(View.INVISIBLE);
                     //nextDay.setVisibility(View.INVISIBLE);
                     mp.pause();
                     rs.start();
@@ -253,8 +294,41 @@ public class MainActivity extends AppCompatActivity {
                     location.setDistanceToRiver(100);
                     //location.setAtRiver(false);
                 }
+                //if player is at a landmark changes gui accordingly
                 if (location.getAtLandmark()) {
                     display.setText("You are at " + location.whatLandmark());
+
+                    title.setVisibility(View.VISIBLE);
+                    play.setVisibility(View.VISIBLE);
+                    play.setText("Leave");
+                    switch(location.getLandmarksVisited())
+                    {
+                        case 1:
+                            title.setImageResource(R.drawable.chimney);
+                            break;
+                        case 2:
+                            title.setImageResource(R.drawable.rock);
+                            break;
+                        case 3:
+                            title.setImageResource(R.drawable.southpass);
+                            break;
+                        case 4:
+                            title.setImageResource(R.drawable.sodasprings);
+                            break;
+                        case 5:
+                            title.setImageResource(R.drawable.blue);
+                            break;
+                        case 6:
+                            title.setImageResource(R.drawable.dalles);
+                            break;
+                        default:
+                            break;
+
+                    }
+                    storyDisplay.setText(story.storyLandmarks(location.whatLandmark()));
+                    storyDisplay.setVisibility(View.VISIBLE);
+                    storyDisplay.bringToFront();
+
                     location.setDistanceToLandmark(300);
                     location.setAtLandmark(false);
                 }

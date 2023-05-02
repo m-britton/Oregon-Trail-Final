@@ -27,6 +27,8 @@ public class River_Interface {
         }
         else if (categoryRequest.equalsIgnoreCase("Check supplies") || categoryRequest.equals("2")){
 
+            riverMenu = false;
+
             display = "1. Food: " + getFood + "\n" + "2. Clothing " + getClothing + "\n" +
                     "3. Weapons " + getWeapons + "\n" + "4. Oxen " + getOxen + "\n" +
                     "5. Spare Wagon Wheel " + getSpareWagonWheel+ "\n" + "6. Spare Wagon Axel: " +
@@ -38,10 +40,16 @@ public class River_Interface {
                     "13. Seed Packages: " + getSeedPackages + "\n" + "14. Shovel: " + getShovel
                     + "\n" + "15. Cooking Items: " + getCookingItems + "\n";
 
+            RiverLayout();
+
+
         }
         else if (categoryRequest.equalsIgnoreCase("Look at map") || categoryRequest.equals("3")){
 
+            riverMenu = false;
             display = "" + title.setImage(R.Map);
+
+            RiverLayout();
 
         }
         else if (categoryRequest.equalsIgnoreCase("Change pace") || categoryRequest.equals("4")){
@@ -68,10 +76,14 @@ public class River_Interface {
         }
         else if (categoryRequest.equalsIgnoreCase("Talk to people") || categoryRequest.equals("7")){
 
+            riverMenu = false;
+
             display = "With the crowds of people waiting to get on the ferry, we could be " +
                     "stranded here for days! Hope there's enough graze for all those animals" +
                     " -- not many people carry feed! I'd rather wait, though, than cross in " +
                     "a rickety wagon boat!";
+
+            RiverLayout();
 
         }
         else { display = "Users input didn't work"; }

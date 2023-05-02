@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Location location = new Location(0, 1, 1, 200, 100, 300);
     Shop shop = new Shop();
     Weather weather = new Weather();
+    Women women = new Women();
     Wagon wagon = new Wagon(shop.food_Price / .1, shop.clothing_Price / .2, shop.weapons_Price / 20, shop.oxen_Price / 50, shop.spareWagonWheel_Price / 8, shop.spareWagonAxel_Price / 3, shop.spareWagonTongues_Price / 3, shop.medicalSupplyBox_Price / 1.5, shop.sewingKit_Price / .50, shop.fireStartingKit_Price / .25, shop.kidsToys_Price / .05, 1, shop.seedPackeges_Price / .01, shop.shovels_Price / 2.5, shop.cookingItems_Price / 1.5);
     MediaPlayer mp;
     MediaPlayer st;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         final Button enterShop = findViewById(R.id.enterShop);
         final Button leaveShop = findViewById(R.id.leaveShop);
         final TextView weatherBox = findViewById(R.id.weatherBox);
+        final TextView sickBox = findViewById(R.id.sickBox);
         //This is to change background color in order to do so use .setBackgroundColor()
         final LinearLayout background = findViewById(R.id.linear);
 
@@ -161,6 +163,11 @@ public class MainActivity extends AppCompatActivity {
                 weatherBox.setText(weather.displayTemperature(weather.getTemperature(location.getZone(), location.getMonth()))
                         + " " + weather.totalRainfall(location.getZone(), location.getMonth()));
 
+                /* Change the background color depending on the weather
+                   White if there is snow
+                   Orange for drought
+                   Blue for good weather
+                 */
                 if(weather.getTotalSnow() >= 1){
                     background.setBackgroundColor(1243);
                 }
@@ -200,6 +207,8 @@ public class MainActivity extends AppCompatActivity {
                 If it is true, randomly generate the person and the disease contracted.
                 Update the variable that tracks the health of that person.
                 Display to the user that someone has become ill.
+                If the person dies display that to the user.
+                Set the number of days the person is sick for to ten.
                  */
                 if(re.illness(health.getHealth())){
                     String disease = health.randomDisease();
@@ -207,8 +216,36 @@ public class MainActivity extends AppCompatActivity {
                     health.sickPerson(person);
                     String sickMessage = person + " has contracted " + disease;
                     health.addHealth(20);
-                    healthBox.setText(health.personDeath(health.getNumberIllnesses(person), person));
+                    sickBox.setText(sickMessage);
+                    //sickBox.setText(health.personDeath(health.getNumberIllnesses(person), person));
                     health.setDaysSick(person);
+                }
+
+                /*
+                When there are more than two people that are sick the women play with the children.
+                Playing with the children makes recovery quicker, and benefits teh overall health of the group
+                 */
+                if(health.getSickPeople() > 2){
+                    women.playWithKids();
+                    health.addHealth(-2);
+                    health.resetDaysSick();
+                }
+
+                /*
+                Once a week each month the women cook more food for their families to eat.
+                When they cook an extra 20 pounds of food is added to the total amount of food.
+                 */
+                if(location.getDay() % 6 == 0) {
+                    women.cookFood();
+                }
+
+                /*
+                When the amount of food remaining in the wagon gets below 300 pounds or if there are
+                less than 3 cooking items the women go foraging for more. A random amount of food
+                and cooking supplies gets added to the total amount.
+                 */
+                if(wagon.getFood() < 300 || wagon.getCookingItems() < 3) {
+                    women.forageFood();
                 }
 
                 // add one for each party member that is sick
@@ -253,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
                     reBox.setText("You found an abandoned wagon");
                 }
                 else if (re.robbedAtNight()) {
-                    reBox.setText("You got robbed in the niddle of the night");
+                    reBox.setText("You got robbed in the middle of the night");
                 }
                 else {
                     reBox.setText("It was a normal day!");

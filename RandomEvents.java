@@ -133,48 +133,37 @@ public class RandomEvents {
     }
 
     /**
-     * injuredOxenPrairie -> Used when traveling on the prairie. Determines if an oxen is injured
+     * injuredOxen -> Used when traveling on the prairie. Determines if an oxen is injured
+     * @param zone -> An integer representing the zone the group is traveling in, and if the zone is mountainous.
      * @return -> True if the randomly generated probability is less than that of getting injured
-     *              on the prairie; False otherwise.
+     *              on the prairie or in the mountains; False otherwise.
      */
-    public boolean injuredOxenPrairie(){
+    public boolean injuredOxen(int zone){
         // generate a random probability of an event occurring and compare it to the probability of a specific event
         setEventProbability();
-        return eventProbability <= prairieInjury;
+        if(zone > 3 && zone < 6 ){
+            return eventProbability <= mountainInjury;
+        }
+        else {
+            return eventProbability <= prairieInjury;
+        }
     }
 
     /**
-     * injuredOxenMountain -> Used when traveling through the mountains. Determines if an ox gets an injury.
+     * injuredPerson -> Used when traveling on the prairie. Determines if an oxen is injured
+     * @param zone -> An integer representing the zone the group is traveling in, and if the zone is mountainous.
      * @return -> True if the randomly generated probability is less than that of getting injured
-     *              in the mountains; False otherwise.
+     *              on the prairie or in the mountains; False otherwise.
      */
-    public boolean injuredOxenMountain(){
+    public boolean injuredPerson(int zone){
         // generate a random probability of an event occurring and compare it to the probability of a specific event
         setEventProbability();
-        return eventProbability <= mountainInjury;
-    }
-
-    /**
-     * injuredPersonPrairie -> Used when traveling on the prairie. Determines if a party member gets injured.
-     * @return -> True if the randomly probability is less than the likelihood of getting an injury
-     *              on the prairie; False otherwise.
-     */
-    public boolean injuredPersonPrairie(){
-        // generate a random probability of an event occurring and compare it to the probability of a specific event
-        setEventProbability();
-        return eventProbability <= prairieInjury;
-    }
-
-    /**
-     * injuredPersonMountains -> Used when traveling through the mountains. Determines if a person
-     *                      sustains an injury while traveling.
-     * @return -> True if the randomly generated probability is less than the probability of getting
-     *              injured in the mountains; False otherwise.
-     */
-    public boolean injuredPersonMountain(){
-        // generate a random probability of an event occurring and compare it to the probability of a specific event
-        setEventProbability();
-        return eventProbability <= mountainInjury;
+        if(zone > 3 && zone < 6 ){
+            return eventProbability <= mountainInjury;
+        }
+        else {
+            return eventProbability <= prairieInjury;
+        }
     }
 
     /**
@@ -332,16 +321,16 @@ public class RandomEvents {
          The higher the total health of the group the more likely it is to become sick.
          */
         if(health <= 34){
-            illnessProbability = 8.0;
+            illnessProbability = 5.0;
         }
         else if(health <= 65){
-            illnessProbability = 16.0;
+            illnessProbability = 10.0;
         }
         else if(health <= 104){
-            illnessProbability = 24.0;
+            illnessProbability = 18.0;
         }
         else if(health <= 139){
-            illnessProbability = 32.0;
+            illnessProbability = 27.0;
         }
         else{
             illnessProbability = 40.0;
@@ -350,5 +339,35 @@ public class RandomEvents {
         // Generate a random probability of an illness occurring and compare it to the actual probability of an illness occurring.
         setEventProbability();
         return eventProbability <= illnessProbability;
+    }
+
+    /**
+     * safeCrossing -> Used when the group has to cross a river. The probability of complications differs
+     *                  based on the method of crossing that the player chooses.
+     * @param methodOfCrossing -> An integer that represents the method that the player has chosen to cross by.
+     * @return -> True if the randomly generated probability is less than the likelihood of a problem
+     *              occurring while crossing; False otherwise
+     */
+    public boolean safeCrossing(int methodOfCrossing){
+        //Create a variable to represent the likelihood of a problem occurring when crossing the river.
+        double problemCrossing = 0.0;
+
+        /*
+        Depending on the method the player uses to cross the river the chance of a problem changes.
+        Safer choices lessen the probability of something going wrong.
+         */
+        if(methodOfCrossing == 1){
+            problemCrossing = 10;
+        }
+        else if(methodOfCrossing == 2){
+            problemCrossing = 5;
+        }
+        else{
+            problemCrossing = 0.5;
+        }
+
+        //Generate a random probability of a problem happening, and compare it to the chance of problems actually occurring
+        setEventProbability();
+        return eventProbability <= problemCrossing;
     }
 }

@@ -47,12 +47,13 @@ public class Health {
     private boolean person5health = true;
 
     private ArrayList<String> deadPeople = new ArrayList<String>();
+    private ArrayList<String> thePeople = new ArrayList<>();
 
     private String person1 = "Hattie";
-    private String person2 = "";
-    private String person3 = "";
-    private String person4 = "";
-    private String person5 = "";
+    private String person2 = "Jake";
+    private String person3 = "Ben";
+    private String person4 = "Annie";
+    private String person5 = "Lydia";
 
 
 
@@ -153,6 +154,17 @@ public class Health {
         }
     }
 
+    public ArrayList<String> getThePeople() {
+        return thePeople;
+    }
+
+    public void addPeople(){
+        thePeople.add(person1);
+        thePeople.add(person2);
+        thePeople.add(person3);
+        thePeople.add(person4);
+        thePeople.add(person5);
+    }
 
     // Other Methods
 
@@ -447,7 +459,7 @@ public class Health {
             case 3: disease = "Cholera"; break;
             case 4: disease = "Measles"; break;
             case 5: disease = "Dysentery"; break;
-            case 6: disease = "Fever"; break;
+            case 6: disease = "Yellow Fever"; break;
         }
         return disease;
     }
@@ -455,21 +467,20 @@ public class Health {
     /**
      * personDeath -> If a person is already ill and they contract another disease they die. This method
      *                determines whether or not a person has contracted multiple diseases and is going to die.
-     * @param personHealth -> A boolean variable denoting the current state of health of a person.
      * @param person -> A string representing the person that is currently being checked for underlying illness.
      * @return -> A string stating if the person has died or not.
      */
-    public String personDeath(int personHealth, String person){
-        // Create a string to hold the message that someone in the group has died
-        String message = "";
-
-        // If the person has contracted 3 diseases then that person will die and the group is decreased by 1
-        if(personHealth == 3){
-            message = person + " Has died.";
-            deadPeople.add(person);
-            totalPeople -= 1;
-            sickPeople -= 1;
+    public String personDeath(String person){
+        for(int i = 0; i < thePeople.size(); i++){
+            if(person == thePeople.get(i)){
+                thePeople.remove(i);
+            }
         }
+        deadPeople.add(person);
+        String message = "";
+        message = person + " Has died.";
+        totalPeople -= 1;
+        sickPeople -= 1;
         return message;
     }
 
@@ -481,19 +492,8 @@ public class Health {
     public String randomPerson(){
         String person = "";
         Random num = new Random();
-        int randomPerson = num.nextInt(5) + 1;
-        switch(randomPerson){
-            case 1: person = person1; break;
-            case 2: person = person2; break;
-            case 3: person = person3; break;
-            case 4: person = person4; break;
-            case 5: person = person5; break;
-        }
-        for(int i = 0; i < deadPeople.size(); i++){
-            if(Objects.equals(person, deadPeople.get(i))){
-                randomPerson();
-            }
-        }
+        int randomPerson = num.nextInt(thePeople.size());
+        person = thePeople.get(randomPerson);
         return person;
     }
 
@@ -555,4 +555,11 @@ public class Health {
             sickPeople += 1;
         }
     }
+
+    public boolean personHasDied(String person){
+        return getNumberIllnesses(person) == 4;
+    }
+
+    public boolean gameOver(){return deadPeople.size() == 5;}
+
 }

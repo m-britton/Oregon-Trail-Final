@@ -1,21 +1,3 @@
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.graphics.Color;
-import android.media.Image;
-import android.os.Bundle;
-
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.QuickContactBadge;
-import android.widget.TextView;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.widget.ImageView;
-
-import org.w3c.dom.Text;
-
 public class MainActivity extends AppCompatActivity {
 
     //Creation of classes used.
@@ -27,11 +9,13 @@ public class MainActivity extends AppCompatActivity {
     Story story = new Story();
     Weather weather = new Weather();
     Women women = new Women();
+    Examples fix = new Examples();
     Wagon wagon = new Wagon(shop.food_Price / .1, shop.clothing_Price / .2, shop.weapons_Price / 20, shop.oxen_Price / 50, shop.spareWagonWheel_Price / 8, shop.spareWagonAxel_Price / 3, shop.spareWagonTongues_Price / 3, shop.medicalSupplyBox_Price / 1.5, shop.sewingKit_Price / .50, shop.fireStartingKit_Price / .25, shop.kidsToys_Price / .05, 1, shop.seedPackeges_Price / .01, shop.shovels_Price / 2.5, shop.cookingItems_Price / 1.5);
     MediaPlayer mp;
     MediaPlayer st;
     MediaPlayer rs;
     MediaPlayer tt;
+    MediaPlayer ft;
 
     public boolean wagonMade = true;
     public boolean mtIsPlaying = false;
@@ -67,15 +51,17 @@ public class MainActivity extends AppCompatActivity {
 
         //Array of images, images made be added as needed
         final int a[] = {R.drawable.shoppingpic, R.drawable.traveling, R.drawable.hattiecampbell,
-                R.drawable.oregonstart, R.drawable.chimneyrock, R.drawable.forthall, R.drawable.fortboise,
+                R.drawable.river, R.drawable.title, R.drawable.credits, R.drawable.oregonstart,
+                R.drawable.chimneyrock, R.drawable.forthall, R.drawable.fortboise, R.drawable.fortbridger,
                 R.drawable.fortkearney, R.drawable.fortwallawalla, R.drawable.laramie, R.drawable.sodaspring,
-                R.drawable.southpass, R.drawable.thedalles, R.drawable.oregoncity, R.drawable.map};
+                R.drawable.southpass, R.drawable.bluemountains, R.drawable.thedalles, R.drawable.oregoncity, R.drawable.map};
 
         //Creates a media player for main theme
         mp = MediaPlayer.create(this, R.raw.maintune);
         st = MediaPlayer.create(this, R.raw.shoptune);
         rs = MediaPlayer.create(this, R.raw.rivertune);
         tt = MediaPlayer.create(this, R.raw.towntune);
+        ft = MediaPlayer.create(this, R.raw.finaletune);
 
         //Put title image and button in front
         title.bringToFront();
@@ -199,6 +185,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                health.addPeople();
+
                 //Switches and removes all necessary aesthetics
                 confirm.setVisibility(View.INVISIBLE);
                 User_InputBox.setVisibility(View.INVISIBLE);
@@ -223,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
                 //Resets display in case no location is reached.
                 display.setText("");
                 shopDisplay.setText("");
+                sickBox.setText("");
 
                 // Reset the number of days that the group loses due to random events and keeps pace set to zero
                 if(resetDay > 0){
@@ -496,6 +485,16 @@ public class MainActivity extends AppCompatActivity {
                     reBox.setText("An oxen has wandered off.");
                     resetDay += 2;
                 }
+                else if(re.injuredOxen(location.getZone())){
+                    reBox.setText("An oxen get injured today");
+                    health.sickOx();
+                }
+                else if(re.injuredPerson(location.getZone())){
+                    String person = health.randomPerson();
+                    reBox.setText(person + " is injured");
+                    health.setDaysSick(person);
+                    health.addHealth(10);
+                }
                 else if (re.foundWagon()) {
                     reBox.setText("You found an abandoned wagon");
                     wagon.setFood(wagon.getFood() + 10);
@@ -562,6 +561,14 @@ public class MainActivity extends AppCompatActivity {
                 healthBox.setText(health.generalHealth());
                 foodBox.setText(Double.toString(wagon.getFood()));
                 date.setText(location.whatMonth() + " " + location.getDay());
+
+                if(health.gameOver()){
+                    healthBox.setText("");
+                    foodBox.setText("");
+                    weatherBox.setText("");
+                    sickBox.setText("");
+                    reBox.setText("Everyone has died :(");
+                }
             }
         });
 

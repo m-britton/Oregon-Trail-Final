@@ -1,7 +1,18 @@
-package com.example.mvpfororegontrail;
+package com.example.mvporegontrailfinaliteration;
+
+/**
+ * Name: Loaction
+ * Date: 4/4/2023
+ * Author: Kaleb Swieringa
+ * Description: This class determines the location of the player, and updates distances from various sites the player visits.
+ * Depending on how many of a certain type of site the player has visited the class will determine what site they are at.
+ * It also keeps track of the day and month.
+ *
+ */
 
 public class Location {
 
+    //Fields
     private int location;
     private int month;
     private int day;
@@ -16,12 +27,9 @@ public class Location {
     private int landmarksVisited;
 
     //These distance variables is to determine if either landmark or atRiver is true. This should be changed in the main activity every time a landmark or river is reached
-    private double distanceToTown;
-    private double distanceToRiver;
-    private double distanceToLandmark;
-
-    private int zone = 0;
-    private int pace = 1;
+    private int distanceToTown;
+    private int distanceToRiver;
+    private int distanceToLandmark;
 
     //Constructor
     public Location (int location, int month, int day, int distanceToTown, int distanceToRiver, int distanceToLandmark)
@@ -44,6 +52,7 @@ public class Location {
         this.gameWon = false;
     }
 
+    //Setters
     public void setLocation (int location) {
         if (location >= 0) {
             this.location = location;
@@ -86,27 +95,25 @@ public class Location {
         this.atRiver = atRiver;
     }
 
-    public void setAtLandmark(boolean atLandmark){
+    public void setAtLandmark(boolean atLandmark)
+    {
         this.atLandmark = atLandmark;
     }
 
     //Setters for the distance variables. Should be reset every time one is reached.
-    public void setDistanceToTown(double distance)
+    public void setDistanceToTown(int distance)
     {
         this.distanceToTown = distance;
     }
-    public void setDistanceToRiver(double distance)
+    public void setDistanceToRiver(int distance)
     {
         this.distanceToRiver = distance;
     }
-    public void setDistanceToLandmark(double distance)
+    public void setDistanceToLandmark(int distance)
     {
         this.distanceToLandmark = distance;
     }
-
-    public void setPace(int pace){
-        this.pace = pace;
-    }
+    public void setGameWon(boolean gameWon) { this.gameWon = gameWon;}
 
     //Getters
     public int getLocation()
@@ -137,24 +144,29 @@ public class Location {
     {
         return this.landmarksVisited;
     }
-    public double getDistanceToTown()
+    public int getTownsVisited() {return this.townsVisited;}
+    public int getRiversVisited() {return this.riversVisited;}
+    public int getDistanceToTown()
     {
         return this.distanceToTown;
     }
-    public double getDistanceToRiver()
+    public int getDistanceToRiver()
     {
         return this.distanceToRiver;
     }
-    public double getDistanceToLandmark()
+    public int getDistanceToLandmark()
     {
         return this.distanceToLandmark;
     }
-
-    public int getZone(){return zone;}
-    public int getPace(){return pace;}
+    public boolean getGameWon() {return  this.gameWon;}
 
 
-    //Returns what month it is as a string based upon the integer number for month
+    /**
+     * whatMonth: Returns what month it is as a string based upon the integer number for month
+     *
+     * @return monthOfYear - Returns what month it is in string format.
+     */
+
     public String whatMonth()
     {
         String monthOfYear = "";
@@ -203,7 +215,11 @@ public class Location {
         return monthOfYear;
     }
 
-    //Increments the day count by 1 (sets to zero if the month changes) and switches the month if the criteria is met
+    /**
+     * incrementDay: Increments the day count by 1 (sets to zero if the month changes)
+     * and switches the month if the criteria is met.
+     */
+
     public void incrementDay()
     {
         //Checks if the current month has 31 days and, if so, makes sure the month changes if it is day 31
@@ -221,7 +237,7 @@ public class Location {
         }
 
         //checks if the current month has 30 days
-        if (this.month == 4 || this.month == 6 || this.month == 9 || this.month == 11)
+        else if (this.month == 4 || this.month == 6 || this.month == 9 || this.month == 11)
         {
             if(this.day == 30)
             {
@@ -235,7 +251,7 @@ public class Location {
         }
 
         //Checks if it is february
-        if (this.month == 2)
+        else if (this.month == 2)
         {
             if (this.day == 28)
             {
@@ -256,7 +272,10 @@ public class Location {
 
     }
 
-    //Determines if the player is at any special stop. This should be called in the main method for every day that passes.
+    /**Determines if the player is at any special stop.
+     * This should be called in the main method for every day that passes.
+     *
+     */
     public void atLandmark()
     {
         if (this.distanceToRiver <= 0)
@@ -278,7 +297,10 @@ public class Location {
         }
     }
 
-    //Determines what town the player is in based on how many towns they have visited
+    /**Determines what town the player is in based on how many towns they have visited
+     *
+     * @return town - what town the player is currently at.
+     */
     public String whatTown()
     {
         String town = "";
@@ -287,27 +309,21 @@ public class Location {
         {
             case 1:
                 town = "Fort Kearney";
-                zone += 1;
                 break;
             case 2:
                 town = "Laramie";
-                zone += 1;
                 break;
             case 3:
                 town = "Fort Bridger";
-                zone += 1;
                 break;
             case 4:
                 town = "Fort Hall";
-                zone += 1;
                 break;
             case 5:
                 town = "Fort Boise";
-                zone += 1;
                 break;
             case 6:
                 town = "Fort Walla Walla";
-                zone += 1;
                 break;
             case 7:
                 town = "Oregon City";
@@ -320,7 +336,10 @@ public class Location {
         return town;
     }
 
-    //Determines what landmark the player is at depending on how many landmarks they have visited
+    /**Determines what landmark the player is at depending on how many landmarks they have visited
+     *
+     * @return landmark - what landmark the player is at.
+     */
     public String whatLandmark()
     {
         String landmark = "";
@@ -340,7 +359,7 @@ public class Location {
                 landmark = "Soda Springs";
                 break;
             case 5:
-                landmark = "Blue Mountaints";
+                landmark = "Blue Mountains";
                 break;
             case 6:
                 landmark = "The Dalles";
@@ -351,41 +370,5 @@ public class Location {
         }
 
         return landmark;
-    }
-
-    public double locationFromPace(int pace, double oxen, int sickPeople, double snow, String location){
-
-        double setPace = 20; //travel 20 miles a day
-
-        if(pace == 1){ //Steady pace
-            setPace *= 1;
-
-        }
-        else if (pace == 2){ //Strenuous pace
-            setPace *= 1.5;
-
-        }
-        else if (pace == 3){ //Grueling pace
-            setPace *= 2;
-
-        }
-        if (location.equalsIgnoreCase("chimney rock") || location.equalsIgnoreCase("independence rock") || location.equalsIgnoreCase("blue mountains")){
-            setPace *= 0.5;
-
-        }
-        if (oxen < 4){
-            setPace *= oxen / 4;
-
-        }
-        if(sickPeople >= 1){
-            setPace *= sickPeople * .10;
-
-        }
-        if(snow >= 30){
-            setPace = 0;
-
-        }
-
-        return setPace;
     }
 }

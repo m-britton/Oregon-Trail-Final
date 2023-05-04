@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     //Creation of classes used.
     RandomEvents re = new RandomEvents();
     Health overallHealth = new Health();
-    Location location = new Location(0, 1, 1, 140, 100, 300);
+    Location location = new Location(0, 1, 1, 340, 60, 700);
     Shop shop = new Shop();
     Story story = new Story();
     Wagon wagon = new Wagon(shop.food_Price/.1, shop.clothing_Price/.2,shop.weapons_Price/20,shop.oxen_Price/50,shop.spareWagonWheel_Price/8,shop.spareWagonAxel_Price/3, shop.spareWagonTongues_Price/3, shop.medicalSupplyBox_Price/1.5, shop.sewingKit_Price/.50, shop.fireStartingKit_Price/.25, shop.kidsToys_Price/.05, 1, shop.seedPackeges_Price/.01, shop.shovels_Price/2.5, shop.cookingItems_Price/1.5);
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer st;
     MediaPlayer rs;
     MediaPlayer tt;
+    MediaPlayer fs;
 
     //Checks if the wagon has been made for purposes of shopping
     public boolean wagonMade = true;
@@ -56,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
         final Button play = findViewById(R.id.playGame);
         final Button credits = findViewById(R.id.credits);
         final TextView storyDisplay = findViewById(R.id.storyDisplay);
+        //game won button
+        final Button newGame = findViewById(R.id.newGame);
+        newGame.setVisibility(View.INVISIBLE);
+
         //This is to change background color in order to do so use .setBackgroundColor()
         final LinearLayout background = findViewById(R.id.linear);
 
@@ -69,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         st = MediaPlayer.create(this, R.raw.st);
         rs = MediaPlayer.create(this, R.raw.rs);
         tt = MediaPlayer.create(this, R.raw.tt);
+        fs = MediaPlayer.create(this, R.raw.fs);
 
 
         //puts the title image and button in front
@@ -78,6 +84,17 @@ public class MainActivity extends AppCompatActivity {
 
         //Makes display invisible until used
         display.setVisibility(View.INVISIBLE);
+
+        //When clicked restarts the game
+        newGame.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+                startActivity(getIntent());
+            }
+
+        });
+
+
 
         //When clicked removes title screen and prompts user to enter shop
         play.setOnClickListener(new View.OnClickListener()  {
@@ -97,13 +114,18 @@ public class MainActivity extends AppCompatActivity {
                     enterShop.setVisibility(View.VISIBLE);
                 }
                 //Hides next day button if not at a river. but reveals it if at river
-                if(!location.getAtRiver())
+                if(!location.getAtRiver() && !location.getAtLandmark())
                 {
                     nextDay.setVisibility(View.INVISIBLE);
                 }
                 else
                 {
                     nextDay.setVisibility(View.VISIBLE);
+                }
+                if(location.getAtLandmark())
+                {
+                    nextDay.setVisibility(View.VISIBLE);
+                    nextDay.bringToFront();
                 }
 
                 location.setAtLandmark(false);
@@ -112,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //if river theme is playing this stops it
                 rs.pause();
+                tt.pause();
 
             }
 
@@ -133,6 +156,8 @@ public class MainActivity extends AppCompatActivity {
         {
             //Sets store layout along with making everything invisible until leaving the shop
             shopDisplay.setText(shop.storeLayout());
+            shopDisplay.setVisibility(View.VISIBLE);
+            confirm.setVisibility(View.VISIBLE);
             enterShop.setVisibility(View.INVISIBLE);
             reBox.setVisibility(View.INVISIBLE);
             date.setVisibility(View.INVISIBLE);
@@ -242,31 +267,46 @@ public class MainActivity extends AppCompatActivity {
                     switch(location.getTownsVisited()) {
                         case 1:
                             title.setImageResource(R.drawable.fortkearney);
+                            location.setDistanceToTown(420);
                             break;
                         case 2:
                             title.setImageResource(R.drawable.laramie);
+                            location.setDistanceToTown(380);
                             break;
                         case 3:
                             title.setImageResource(R.drawable.bridger);
+                            location.setDistanceToTown(320);
                             break;
                         case 4:
                             title.setImageResource(R.drawable.hall);
+                            location.setDistanceToTown(340);
                             break;
                         case 5:
                             title.setImageResource(R.drawable.boise);
+                            location.setDistanceToTown(360);
                             break;
                         case 6:
                             title.setImageResource(R.drawable.walla);
+                            location.setDistanceToTown(340);
                             break;
                         case 7:
+                            //Brings up game won screen and music
                             title.setImageResource(R.drawable.win);
+                            newGame.setVisibility(View.VISIBLE);
+                            newGame.bringToFront();
+                            location.setGameWon(true);
+                            fs.start();
+                            mp.pause();
                         default:
                             break;
                     }
+
+                    //Changes gui to display town photo and information.
                     title.setVisibility(View.VISIBLE);
                     play.setVisibility(View.VISIBLE);
                     play.setText("Enter Town");
                     nextDay.setVisibility(View.INVISIBLE);
+                    //Starts the town music
                     mp.pause();
                     tt.start();
 
@@ -275,7 +315,12 @@ public class MainActivity extends AppCompatActivity {
                     storyDisplay.bringToFront();
                     storyDisplay.setText(story.storyTowns(location.whatTown()));
 
-                    location.setDistanceToTown(200);
+                    //if the game is won brings up special button
+                    if(location.getGameWon())
+                    {
+                        newGame.setVisibility(View.VISIBLE);
+                        newGame.bringToFront();
+                    }
                 }
                 //If the player is at a river changes gui accordingly
                 if (location.getAtRiver()) {
@@ -291,8 +336,21 @@ public class MainActivity extends AppCompatActivity {
                     mp.pause();
                     rs.start();
 
-                    location.setDistanceToRiver(100);
-                    //location.setAtRiver(false);
+                    //Resets the distance to the next river after reaching one depending on which river the player is at
+                    switch(location.getRiversVisited())
+                    {
+                        case 1:
+                            location.setDistanceToRiver(300);
+                            break;
+                        case 2:
+                            location.setDistanceToRiver(500);
+                            break;
+                        case 3:
+                            location.setDistanceToRiver(320);
+                        case 4:
+                            location.setDistanceToRiver(10000);
+
+                    }
                 }
                 //if player is at a landmark changes gui accordingly
                 if (location.getAtLandmark()) {
@@ -301,25 +359,33 @@ public class MainActivity extends AppCompatActivity {
                     title.setVisibility(View.VISIBLE);
                     play.setVisibility(View.VISIBLE);
                     play.setText("Leave");
+                    nextDay.setVisibility(View.INVISIBLE);
+
                     switch(location.getLandmarksVisited())
                     {
                         case 1:
                             title.setImageResource(R.drawable.chimney);
+                            location.setDistanceToLandmark(260);
                             break;
                         case 2:
                             title.setImageResource(R.drawable.rock);
+                            location.setDistanceToLandmark(100);
                             break;
                         case 3:
                             title.setImageResource(R.drawable.southpass);
+                            location.setDistanceToLandmark(100);
                             break;
                         case 4:
                             title.setImageResource(R.drawable.sodasprings);
+                            location.setDistanceToLandmark(500);
                             break;
                         case 5:
                             title.setImageResource(R.drawable.blue);
+                            location.setDistanceToLandmark(100);
                             break;
                         case 6:
                             title.setImageResource(R.drawable.dalles);
+                            location.setDistanceToLandmark(10000);
                             break;
                         default:
                             break;
@@ -329,8 +395,8 @@ public class MainActivity extends AppCompatActivity {
                     storyDisplay.setVisibility(View.VISIBLE);
                     storyDisplay.bringToFront();
 
-                    location.setDistanceToLandmark(300);
-                    location.setAtLandmark(false);
+                    mp.pause();
+                    tt.start();
                 }
 
 
@@ -371,11 +437,20 @@ public class MainActivity extends AppCompatActivity {
                 // Using the rations found above determine how the health is effected.
                 overallHealth.healthFromFood(rations);
 
-                wagon.setFood(wagon.getFood() - 20);
+                //Takes away food every day or displays no food
+                if (wagon.getFood() > 0) {
+                    wagon.setFood(wagon.getFood() - 20);
+                    foodBox.setText(Double.toString(wagon.getFood()));
+                }
+                else
+                {
+                    foodBox.setText("No Food");
+                }
 
                 // display to the user the overall health of the entire group
                 healthBox.setText(overallHealth.generalHealth());
-                foodBox.setText(Double.toString(wagon.getFood()));
+
+
                 date.setText(location.whatMonth() + " " + location.getDay());
             }
         });

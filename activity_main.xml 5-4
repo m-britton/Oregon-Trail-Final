@@ -7,16 +7,13 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#245"
         android:gravity="center"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="-68dp">
-
-    </LinearLayout>
+        android:background="#245" />
 
     <Button
         android:id="@+id/button"
@@ -47,8 +44,22 @@
         app:layout_constraintVertical_bias="0.897" />
 
     <Button
-        android:id="@+id/enter"
-        android:layout_width="104dp"
+        android:id="@+id/credits"
+        android:layout_width="107dp"
+        android:layout_height="65dp"
+        android:layout_alignParentRight="true"
+        android:backgroundTint="#3D6114"
+        android:text="credits"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.897" />
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="107dp"
         android:layout_height="67dp"
         android:layout_alignParentRight="true"
         android:layout_marginEnd="152dp"
@@ -59,8 +70,32 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
+        android:id="@+id/playGame"
+        android:layout_width="107dp"
+        android:layout_height="67dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="152dp"
+        android:layout_marginBottom="356dp"
+        android:backgroundTint="#3D6114"
+        android:text="Play Game"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/newGame"
+        android:layout_width="107dp"
+        android:layout_height="67dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="152dp"
+        android:layout_marginBottom="356dp"
+        android:backgroundTint="#3D6114"
+        android:text="Restart Game"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
         android:id="@+id/enterShop"
-        android:layout_width="104dp"
+        android:layout_width="107dp"
         android:layout_height="67dp"
         android:layout_alignParentRight="true"
         android:layout_marginEnd="152dp"
@@ -83,15 +118,15 @@
 
     <EditText
         android:id="@+id/UserInput"
-        android:layout_width="104dp"
-        android:layout_height="49dp"
-        android:hint="User Input"
+        android:layout_width="107dp"
+        android:layout_height="67dp"
+        android:hint="Enter Choice"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.549" />
+        app:layout_constraintVertical_bias="0.700" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -103,6 +138,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1"
         app:srcCompat="@drawable/hattiecampbell" />
+
+    <ImageView
+        android:id="@+id/fullImage"
+        android:layout_width="405dp"
+        android:layout_height="700dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1"
+        app:srcCompat="@drawable/title" />
 
     <TextView
         android:id="@+id/Date"
@@ -143,19 +190,6 @@
         app:layout_constraintVertical_bias="0.597" />
 
     <TextView
-        android:id="@+id/weatherBox"
-        android:layout_width="112dp"
-        android:layout_height="89dp"
-        android:text="Weather"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.015"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.722" />
-
-    <TextView
         android:id="@+id/REbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -171,26 +205,27 @@
         android:id="@+id/shopDisplay"
         android:layout_width="401dp"
         android:layout_height="453dp"
-        android:text="TextView"
-        android:textSize="15sp"
+        android:text=""
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.077" />
-    
-     <TextView
-        android:id="@+id/sickBox"
-        android:layout_width="112dp"
-        android:layout_height="89dp"
-        android:text="Sick"
-        android:textSize="20sp"
+
+    <TextView
+        android:id="@+id/storyDisplay"
+        android:layout_width="401dp"
+        android:layout_height="400dp"
+        android:text=""
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintVertical_bias="0.477" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

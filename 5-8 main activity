@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Location location = new Location(0, 1, 1, 340, 60, 700);
     Shop shop = new Shop();
     Story story = new Story();
+    RiverMenu river = new RiverMenu();
     Wagon wagon = new Wagon(shop.food_Price/.1, shop.clothing_Price/.2,shop.weapons_Price/20,shop.oxen_Price/50,shop.spareWagonWheel_Price/8,shop.spareWagonAxel_Price/3, shop.spareWagonTongues_Price/3, shop.medicalSupplyBox_Price/1.5, shop.sewingKit_Price/.50, shop.fireStartingKit_Price/.25, shop.kidsToys_Price/.05, 1, shop.seedPackeges_Price/.01, shop.shovels_Price/2.5, shop.cookingItems_Price/1.5);
     MediaPlayer mp;
     MediaPlayer st;
@@ -153,6 +154,40 @@ public class MainActivity extends AppCompatActivity {
             }
 
                                 });
+                                
+            /////////////////////////////////////////////////////   
+                       public void onClick(View v) {
+
+                String Input = User_InputBox.getText().toString();
+
+                if(river.riverMenu){
+
+                    //Displayed.setText();
+                    String boughtItem = river.secondRiverCategory(Input);
+                    Displayed.setText(boughtItem);
+
+                    if (boughtItem.equalsIgnoreCase("Map")){
+
+                        Displayed.setText("Map is displayed");
+
+                    }
+                    else if (river.dayRest(Integer.parseInt(Input)) > 1){
+
+                        Displayed.setText("Days rested");
+
+
+                    }
+                else{
+
+                    }
+                    Displayed.setText(river.riverCatagory(Input) + river.output);
+
+                }
+            }
+
+        });
+        
+        ///////////////////////////////////////////////////////
 
 
 //This button opens up the credits menu when clicked

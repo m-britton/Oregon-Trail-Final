@@ -163,8 +163,8 @@ public class MainActivity extends AppCompatActivity {
                 if(river.riverMenu){
 
                     //Displayed.setText();
-                    String boughtItem = river.secondRiverCategory(Input);
-                    Displayed.setText(boughtItem);
+                    String secondCategory = river.secondRiverCategory(Input);
+                    Displayed.setText(secondCategory);
 
                     if (boughtItem.equalsIgnoreCase("Map")){
 

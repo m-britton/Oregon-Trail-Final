@@ -179,8 +179,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 else{
 
+                        Displayed.setText(river.riverCatagory(Input) + river.output);
+
                     }
-                    Displayed.setText(river.riverCatagory(Input) + river.output);
 
                 }
             }

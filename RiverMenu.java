@@ -1,26 +1,24 @@
 /**
- * Name: Shopping
- * Date: 3/30/2023
+ * Name: RiverMenu
+ * Date: 5/08/2023
  * Author: Julia Kamatali
- * Discription: The Shopping class is responsible for allowing the player to buy any necessary
- * goods the may find useful during their journey on the Oregon Trail.
+ * Discription: The River class is responsible for allowing the player to cross the river, 
+ * check the wagon, change rashons, change pace if necessary by the user
  */
 public class Shop {
 
-    //Fields
+ //Fields
 public boolean riverMenu = true;
 //public boolean enterPace = false;
 
-//Goods the player can buy
 
-
-    public String otherinput; //input from the user (name of what they want to buy or the number associated with that category name)
-    public String output = ""; //Shop shelf
+    public String otherinput; //input from the user
+    public String output = ""; //River menu/display
 
 
     /*
-    * storeLayout -> This is what will be outputed on the display screen first when the user goes to buy goods
-    * @return -> Shop shelf, outputs how much of each item the user has bought
+    * riverLayout -> This is what will be outputed on the display screen first when the user gets to a river
+    * @return -> the different things the user can do before corssing the river 
     */
     public String riverLayout() {
 
@@ -33,15 +31,15 @@ public boolean riverMenu = true;
     }
 
     /*
-    * calcBoughtItem -> Calculates the price of the good the user picked to buy
-    * @param categoryRequest -> takes in the item the user picked
-    * @param inputNumber -> takes in the quantity of the good the user wants to buy
-    * @return -> the total price of what the user chose to buy
+    * riverCatagory -> Based on if the user decieds to change their pace/rest, ration intake,
+    * or wants to look at the map they can do so before corssing the river
+    * @param userInput -> takes in the quantity of the good the user wants to buy
+    * @return -> the pace or ration intake they want to change before crossing the river
     */
-    public String calcBoughtItem(String userInput){
+    public String riverCatagory(String userInput){
 
         String input = "";
-        riverMenu = true;
+        riverMenu = true; // reverts back to the river menu after this method is executed 
 
         if (userInput.equalsIgnoreCase("A steady pace") || userInput.equals("A")){
 
@@ -88,6 +86,12 @@ public boolean riverMenu = true;
         return input;
 
     }
+    
+    /*
+    * dayRest -> counts how many days the user wants to rest before crossin the river
+    * @param days -> inputed days the user wants to rest
+    * @return -> return the users input
+    */
     public int dayRest(int days){
 
         return days;
@@ -97,11 +101,12 @@ public boolean riverMenu = true;
 
 
     /*
-    * buyItem -> Takes in what the user wants to buy and asks how much of item they want to buy
+    * secondRiverCategory -> This is what the user first picks to do before crossing the river
+    * They have the option to cross, check their wagon, look at the map, change pace/rest, change food ration intake
     * @param userInput -> takes in the type of good the user wants to buy
     * @return -> the next display for the user, which asks how much of that good they want to buy
     */
-    public String buyItem(String userInput) {
+    public String secondRiverCategory(String userInput) {
 
         riverMenu = false;
         otherinput = userInput;
@@ -165,6 +170,12 @@ public boolean riverMenu = true;
         return input;
 
     }
+
+
+
+
+}
+
 
 
 

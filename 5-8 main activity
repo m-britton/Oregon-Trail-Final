@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Gui screen variables
         final TextView display = findViewById(R.id.Display);
         final Button nextDay = findViewById(R.id.button);
         final TextView date = findViewById(R.id.Date);
@@ -142,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                     tt.pause();
                 }
                 
+                //Sets the variable at___ to false until the player reaches another one
                 location.setAtLandmark(false);
                 location.setAtRiver(false);
                 location.setAtTown(false);
@@ -153,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                                 });
 
 
+//This button opens up the credits menu when clicked
         credits.setOnClickListener(new View.OnClickListener()  {
 
             public void onClick(View v)
@@ -205,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
             }
                                      });
 
+//A button that confirms the user input changing values in the shop class
         confirm.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v)
@@ -241,7 +245,10 @@ public class MainActivity extends AppCompatActivity {
                 foodBox.setVisibility(View.VISIBLE);
                 healthBox.setVisibility(View.VISIBLE);
                 reBox.setVisibility(View.VISIBLE);
+                
+                //Stops the store theme
                 st.stop();
+                
                 //Changes images to oregon start
                 picture.setImageResource(R.drawable.oregonstart);
                 //Starts the mt if it is not playing
@@ -322,8 +329,8 @@ public class MainActivity extends AppCompatActivity {
                     play.setVisibility(View.VISIBLE);
                     play.setText("Enter Town");
                     nextDay.setVisibility(View.INVISIBLE);
+                    
                     //Starts the town music
-                  
                     tt.start();
                     mp.pause();
 
@@ -412,7 +419,7 @@ public class MainActivity extends AppCompatActivity {
                     storyDisplay.setText(story.storyLandmarks(location.whatLandmark()));
                     storyDisplay.setVisibility(View.VISIBLE);
                     storyDisplay.bringToFront();
-                    
+                    //starts town theme if at a town
                     tt.start();
                     mp.pause();
                 }

@@ -323,8 +323,9 @@ public class MainActivity extends AppCompatActivity {
                     play.setText("Enter Town");
                     nextDay.setVisibility(View.INVISIBLE);
                     //Starts the town music
-                    mp.pause();
+                  
                     tt.start();
+                    mp.pause();
 
                     title.bringToFront();
                     storyDisplay.setVisibility(View.VISIBLE);
@@ -349,8 +350,9 @@ public class MainActivity extends AppCompatActivity {
                     play.setText("Cross River");
                     nextDay.setVisibility(View.INVISIBLE);
                     //nextDay.setVisibility(View.INVISIBLE);
-                    mp.pause();
+                  
                     rs.start();
+                    mp.pause();
 
                     //Resets the distance to the next river after reaching one depending on which river the player is at
                     switch(location.getRiversVisited())
@@ -410,9 +412,9 @@ public class MainActivity extends AppCompatActivity {
                     storyDisplay.setText(story.storyLandmarks(location.whatLandmark()));
                     storyDisplay.setVisibility(View.VISIBLE);
                     storyDisplay.bringToFront();
-
-                    mp.pause();
+                    
                     tt.start();
+                    mp.pause();
                 }
 
 

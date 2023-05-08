@@ -5,7 +5,7 @@
  * Discription: The River class is responsible for allowing the player to cross the river, 
  * check the wagon, change rashons, change pace if necessary by the user
  */
-public class Shop {
+public class RiverMenu {
 
  //Fields
 public boolean riverMenu = true;

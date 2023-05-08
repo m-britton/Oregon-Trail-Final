@@ -107,6 +107,11 @@ public class MainActivity extends AppCompatActivity {
                 credits.setVisibility(View.INVISIBLE);
                 leaveShop.setVisibility(View.INVISIBLE);
                 storyDisplay.setVisibility(View.INVISIBLE);
+                
+                healthBox.setVisibility(View.INVISIBLE);
+                reBox.setVisibility(View.INVISIBLE);
+                User_InputBox.setVisibility(View.INVISIBLE);
+                foodBox.setVisibility(View.INVISIBLE);
 
                 //allows player to enter shop if at a town
                 if(location.getAtTown())
@@ -225,6 +230,11 @@ public class MainActivity extends AppCompatActivity {
                 confirm.setVisibility(View.INVISIBLE);
                 User_InputBox.setVisibility(View.INVISIBLE);
                 leaveShop.setVisibility(View.INVISIBLE);
+                foodBox.setVisibility(View.Visible);
+                foodBox.setVisibility(View.VISIBLE);
+                User_InputBox.setVisibility(View.VISIBLE);
+                healthBox.setVisibility(View.VISIBLE);
+                reBox.setVisibility(View.VISIBLE);
                 st.stop();
                 //Changes images to oregon start
                 picture.setImageResource(R.drawable.oregonstart);

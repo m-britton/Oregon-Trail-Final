@@ -232,7 +232,6 @@ public class MainActivity extends AppCompatActivity {
                 leaveShop.setVisibility(View.INVISIBLE);
                 foodBox.setVisibility(View.Visible);
                 foodBox.setVisibility(View.VISIBLE);
-                User_InputBox.setVisibility(View.VISIBLE);
                 healthBox.setVisibility(View.VISIBLE);
                 reBox.setVisibility(View.VISIBLE);
                 st.stop();

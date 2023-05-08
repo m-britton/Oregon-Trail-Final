@@ -132,14 +132,21 @@ public class MainActivity extends AppCompatActivity {
                     nextDay.setVisibility(View.VISIBLE);
                     nextDay.bringToFront();
                 }
-
+                
+                //pauses river and town theme if at a river or town when button is clicked
+                if(location.getAtRiver()) {
+                    rs.pause();
+                }
+                if(location.getAtTown())
+                {
+                    tt.pause();
+                }
+                
                 location.setAtLandmark(false);
                 location.setAtRiver(false);
                 location.setAtTown(false);
 
-                //if river theme is playing this stops it
-                rs.pause();
-                tt.pause();
+               
 
             }
 

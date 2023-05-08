@@ -120,16 +120,16 @@ public boolean riverMenu = true;
 
         } else if (userInput.equalsIgnoreCase("Check supplies") || userInput.equals("2")) {
 
-            input = "1. Food: " + "getFood" + "\n" + "2. Clothing " + "getClothing" + "\n" +
-                    "3. Weapons " + "getWeapons" + "\n" + "4. Oxen " + "getOxen" + "\n" +
-                    "5. Spare Wagon Wheel " + "getSpareWagonWheel"+ "\n" + "6. Spare Wagon Axel: " +
-                    "getSpareWagonAxel" + "\n" + "7. Spare Wagon Tongues: " + "getSpareWagonTongues"
-                    + "\n" + "8. Medical Supply Box: " + "getMedicalSupplyBox" + "\n" +
-                    "9. Sewing Kit: " + "getSewingKit" + "\n" + "10. Fire Starting Kit: "
-                    + "getFireStartingKit" + "\n" + "11. Kids Toys: " + "getKidsToys" + "\n" +
-                    "12. Family Keeping Sake:" + "getFamilyKeepingSake" + "\n" +
-                    "13. Seed Packages: " + "getSeedPackages" + "\n" + "14. Shovel: " + "getShovel"
-                    + "\n" + "15. Cooking Items: " + "getCookingItems" + "\n";
+             input = "1. Food: " + getFood + "\n" + "2. Clothing " + getClothing + "\n" +
+                    "3. Weapons " + getWeapons + "\n" + "4. Oxen " + getOxen + "\n" +
+                    "5. Spare Wagon Wheel " + getSpareWagonWheel + "\n" + "6. Spare Wagon Axel: " +
+                    getSpareWagonAxel + "\n" + "7. Spare Wagon Tongues: " + "getSpareWagonTongues"
+                    + "\n" + "8. Medical Supply Box: " + getMedicalSupplyBox + "\n" +
+                    "9. Sewing Kit: " + getSewingKit + "\n" + "10. Fire Starting Kit: "
+                    + getFireStartingKit + "\n" + "11. Kids Toys: " + getKidsToys + "\n" +
+                    "12. Family Keeping Sake:" + getFamilyKeepingSake + "\n" +
+                    "13. Seed Packages: " + getSeedPackages + "\n" + "14. Shovel: " + getShovel
+                    + "\n" + "15. Cooking Items: " + getCookingItems + "\n";
 
         } else if (userInput.equalsIgnoreCase("Look at map") || userInput.equals("3")) {
 

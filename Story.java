@@ -1,5 +1,12 @@
 package com.example.mp2oregontrailmvp;
 
+
+/**
+ * Name: Story
+ * Date:/ 5/11/23
+ * Author: Julia Kamatali
+ * Description: This class displays the stories associated with each town the user visits
+ */
 public class Story {
     private String townStory  =  "No story for town";
     private String landmarkStory = "No story for landmark";

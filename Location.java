@@ -379,6 +379,11 @@ public class Location {
         return landmark;
     }
 
+    
+    /** Calculates the distance that should be traveled based upon the values of pace, oxen, sick people, weather, and location.
+     *
+     *@return setPace - the current distance the player travels each day
+     */
     public double locationFromPace(int pace, double oxen, int sickPeople, double snow, String location){
 
         double setPace = 20; //travel 20 miles a day

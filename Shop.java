@@ -26,10 +26,7 @@ public class Shop {
     public String storeLayout() {
 
 
-        String title = "Matt's General Store" + "\n" +
-                "Independence, Missouri" + "\n" +
-                "March 1, 1848" + "\n" +
-                "                           ";
+        String title = "Matt's General Store" + "\n" + "                           ";
 
         String food = "1. Food: $" + food_Price;
         String clothing = "2. Clothing: $" + clothing_Price;

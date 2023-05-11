@@ -1,4 +1,10 @@
-package com.example.mp2oregontrailmvp;
+/**
+ * Name: Shop
+ * Date:/ 5/11/23
+ * Author: Julia Kamatali
+ * Description: The Shop class is responsible for allowing the player to buy an 
+ * neeccary goods that the user may find usful during their journy on Oregon Trail. 
+ */
 
 public class Shop {
     public boolean buying = true;

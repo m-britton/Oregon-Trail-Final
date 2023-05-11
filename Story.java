@@ -8,15 +8,18 @@ package com.example.mp2oregontrailmvp;
  * Description: This class displays the stories associated with each town the user visits
  */
 public class Story {
+    
     private String townStory  =  "No story for town";
     private String landmarkStory = "No story for landmark";
 
+    // Introduction for the user at the begining of the game
     public final String welcomeStory = "Hi I’m Hattie, my family is about to embark on a very " +
             "dangerous and challenging adventure to oregon. My parents Charles and Augusta are " +
             "taking me and my siblings Ben and Jake across the country to start a new and better " +
             "life. It’s time for us to buy our supplies for our trip along the Oregon trail. " +
             "We have $1000 to spend. Click enter shop and help my family fill our wagon. \n";
 
+    // Displayed after the user exist the the first shop in the town Independence
     public final String getStartedStory = " Thanks for your help shopping. Now it’s time for us to " +
             "start our journey. I’ve heard many stories about people traveling the trail and how " +
             "difficult the journey can be and they make me nervous. However, I believe my family " +

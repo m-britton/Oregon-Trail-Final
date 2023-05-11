@@ -1,6 +1,3 @@
-package com.example.mp2oregontrailmvp;
-
-
 /**
  * Name: Story
  * Date:/ 5/11/23

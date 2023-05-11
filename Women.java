@@ -1,5 +1,15 @@
 package com.example.mp2oregontrailmvp;
 
+/**
+ * Name: Women
+ * Date: 4/25/23
+ * Author: McKinley Britton
+ * Description: The women class allows women to take actions during game play.
+ *              Women can play with the children, cook food, forage for more food and supplies, and
+ *              repair clothing that is inadequate for winter. Each method has different effects on
+ *              the supplies in the wagon and will display a message to the user when the method is called.
+ */
+
 import java.util.Random;
 
 public class Women extends Wagon

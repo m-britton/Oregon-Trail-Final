@@ -19,7 +19,16 @@ public class Story {
             "harsh and we will need all the layers we can get. Remember anything can happen at any " +
             "point  along the Oregon trail. Click next day to begin. ";
 
+    /**
+     * Default constructor to create values for the different stories that are displayed to the user.
+     */
+    public Story(){}
 
+    /**
+     * storyTowns -> Depending on the town visited in the game the story according to it is returned as a string.
+     * @param town -> A string representing the town that is being visited.
+     * @return -> A string of the story for the specified town.
+     */
     public String storyTowns(String town){
 
         if(town.equalsIgnoreCase("Fort Kearney")){
@@ -116,13 +125,14 @@ public class Story {
         }
         else {this.townStory = "Error occurred for town story";}
 
-
-
         return this.townStory;
     }
 
-
-
+    /**
+     * storyLandmarks -> Depending on the landmark being visited the coordinating story is displayed.
+     * @param landmark -> A string representing the landmark being visited.
+     * @return -> A string that tell the story of the landmark.
+     */
     public String storyLandmarks(String landmark){
 
         if(landmark.equalsIgnoreCase("Chimney Rock")){
@@ -196,7 +206,6 @@ public class Story {
 
         }
         else {this.landmarkStory = "Error occurred for landmark story";}
-
 
         return this.landmarkStory;
 

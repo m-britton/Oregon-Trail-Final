@@ -10,12 +10,15 @@ public class MainActivity extends AppCompatActivity {
     Weather weather = new Weather();
     Women women = new Women();
     Wagon wagon = new Wagon(shop.food_Price / .1, shop.clothing_Price / .2, shop.weapons_Price / 20, shop.oxen_Price / 50, shop.spareWagonWheel_Price / 8, shop.spareWagonAxel_Price / 3, shop.spareWagonTongues_Price / 3, shop.medicalSupplyBox_Price / 1.5, shop.sewingKit_Price / .50, shop.fireStartingKit_Price / .25, shop.kidsToys_Price / .05, 1, shop.seedPackages_Price / .01, shop.shovels_Price / 2.5, shop.cookingItems_Price / 1.5);
+
+    // Media players created to play the different music incorporated
     MediaPlayer mp;
     MediaPlayer st;
     MediaPlayer rs;
     MediaPlayer tt;
     MediaPlayer fs;
 
+    // Fields
     public boolean wagonMade = true;
     public boolean mtIsPlaying = false;
     public int resetDay = 0;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Create all text boxes, buttons, and input boxes, to update the GUI accordingly throughout
         final TextView display = findViewById(R.id.Display);
         final Button nextDay = findViewById(R.id.button);
         final TextView date = findViewById(R.id.Date);
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView storyDisplay = findViewById(R.id.storyDisplay);
         final Button newGame = findViewById(R.id.newGame);
         final TextView womanBox = findViewById(R.id.womanBox);
+
         //This is to change background color in order to do so use .setBackgroundColor()
         final LinearLayout background = findViewById(R.id.linear);
 
@@ -75,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         display.setVisibility(View.INVISIBLE);
         newGame.setVisibility(View.INVISIBLE);
 
+        // Add all people to an array at the start of each game
         health.addPeople();
 
         //When clicked restarts the game
@@ -91,15 +97,12 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View v)
             {
-                rs.pause();
-
                 //Sets various gui parts to invisible to reveal a new scene
                 title.setVisibility(View.INVISIBLE);
                 play.setVisibility(View.INVISIBLE);
                 credits.setVisibility(View.INVISIBLE);
                 leaveShop.setVisibility(View.INVISIBLE);
                 storyDisplay.setVisibility(View.INVISIBLE);
-
                 healthBox.setVisibility(View.INVISIBLE);
                 reBox.setVisibility(View.INVISIBLE);
                 User_InputBox.setVisibility(View.INVISIBLE);
@@ -113,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     enterShop.setVisibility(View.VISIBLE);
                 }
-                //Hides next day button if not at a river. but reveals it if at river
+                //Hides next day button if not at a river, but reveals it if at river
                 if(!location.getAtRiver() && !location.getAtLandmark())
                 {
                     nextDay.setVisibility(View.INVISIBLE);
@@ -137,14 +140,47 @@ public class MainActivity extends AppCompatActivity {
                     tt.pause();
                 }
 
+                // When at a river the river interaction screen comes up
+                if(location.getAtRiver()) {
+                    // Make input box visible
+                    User_InputBox.setVisibility(View.VISIBLE);
+
+                    // String for what user enters in the box
+                    String input = User_InputBox.getText().toString();
+
+                    // Depending on the users choice display different things
+                    if (river.riverMenu) {
+                        String secondCategory = river.secondRiverCategory(input);
+                        display.setVisibility(View.VISIBLE);
+                        shopDisplay.setVisibility(View.INVISIBLE);
+                        display.setText(secondCategory);
+                        display.bringToFront();
+
+                        // The map appears when that is what the user chooses
+                        if (river.secondRiverCategory(input).equalsIgnoreCase("Map")) {
+                            picture.setImageResource(R.drawable.map);
+                        }
+                        // The user rests if they choose to do so
+                        else if (river.dayRest(Integer.parseInt(input)) > 1) {
+                            display.setText("Days rested");
+                            location.setDay(location.getDay() + Integer.parseInt(input));
+                            display.setVisibility(View.VISIBLE);
+                            display.setText(secondCategory);
+                            display.bringToFront();
+                        }
+                        else {
+                            display.setText(river.riverCatagory(input) + river.output);
+                        }
+                    }
+                }
                 //Set the variable at___ to false until the player reaches another one
                 location.setAtLandmark(false);
-                location.setAtRiver(false);
                 location.setAtTown(false);
+                location.setAtRiver(false);
             }
         });
 
-
+        // Brings up the credits page when clicked
         credits.setOnClickListener(new View.OnClickListener()  {
 
             public void onClick(View v)
@@ -169,9 +205,9 @@ public class MainActivity extends AppCompatActivity {
                 weatherBox.setVisibility(View.INVISIBLE);
                 sickBox.setVisibility(View.INVISIBLE);
                 womanBox.setVisibility(View.INVISIBLE);
-
                 leaveShop.setVisibility(View.VISIBLE);
                 User_InputBox.setVisibility(View.VISIBLE);
+
                 //Changes music
                 st.start();
 
@@ -180,10 +216,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // When clicked the player leaves the shop and returns to the game
         leaveShop.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                //shopDisplay.setVisibility(View.INVISIBLE);
+                // Change gui accordingly for the users game
                 shopDisplay.setVisibility(View.INVISIBLE);
                 reBox.setVisibility(View.VISIBLE);
                 date.setVisibility(View.VISIBLE);
@@ -288,12 +325,10 @@ public class MainActivity extends AppCompatActivity {
                 location.setDistanceToLandmark(location.getDistanceToLandmark() - 20);
                 location.setDistanceToRiver(location.getDistanceToRiver() - 20);
                 location.setDistanceToTown(location.getDistanceToTown() - 20);
-
                 location.atLandmark();
 
                 //Displays town image if the person is at a town based upon which town. If true resets distance to next landmark.
                 if (location.getAtTown()) {
-                    display.setText("You are at town " + location.whatTown());
 
                     switch(location.getTownsVisited()) {
                         case 1:
@@ -335,13 +370,16 @@ public class MainActivity extends AppCompatActivity {
                     //changes the gui to display picture of the town and its story
                     title.setVisibility(View.VISIBLE);
                     play.setVisibility(View.VISIBLE);
+
+                    // Change button for the player to enter the town to shop and then return to play
                     play.setText("Enter Town");
                     nextDay.setVisibility(View.INVISIBLE);
 
                     //switches the music to the town song
-                    mp.pause();
                     tt.start();
+                    mp.pause();
 
+                    // Brings town picture and story to the front so the user can see/read it
                     title.bringToFront();
                     storyDisplay.setVisibility(View.VISIBLE);
                     storyDisplay.bringToFront();
@@ -354,20 +392,31 @@ public class MainActivity extends AppCompatActivity {
                         newGame.bringToFront();
                     }
                 }
+
                 //If the player is at a river changes gui accordingly
                 if (location.getAtRiver()) {
-                    display.setText("You are at a river");
-
+                    // Display the picture of the river to the user
                     title.setImageResource(R.drawable.river);
 
+                    // make other gui changes
                     title.setVisibility(View.VISIBLE);
                     play.setVisibility(View.VISIBLE);
                     play.setText("Cross River");
                     nextDay.setVisibility(View.INVISIBLE);
+                    User_InputBox.setVisibility(View.VISIBLE);
+                    shopDisplay.setVisibility(View.VISIBLE);
+                    shopDisplay.setText(river.riverLayout());
+
+                    // Displays the choices to the user and the input box for their choice
+                    User_InputBox.bringToFront();
+                    shopDisplay.bringToFront();
+
+                    // reset river menu to true
+                    river.setRiverMenu();
 
                     //changes the song playing to the river tune
-                    mp.pause();
                     rs.start();
+                    mp.pause();
 
                     //Resets the distance to the next river after reaching one depending on which river the player is at
                     switch(location.getRiversVisited())
@@ -382,19 +431,19 @@ public class MainActivity extends AppCompatActivity {
                             location.setDistanceToRiver(320);
                         case 4:
                             location.setDistanceToRiver(10000);
-
                     }
                 }
 
                 //if player is at a landmark changes gui accordingly
                 if (location.getAtLandmark()) {
-                    display.setText("You are at " + location.whatLandmark());
 
+                    // make gui updates for aesthetic purposes
                     title.setVisibility(View.VISIBLE);
                     play.setVisibility(View.VISIBLE);
                     play.setText("Leave");
                     nextDay.setVisibility(View.INVISIBLE);
 
+                    // determine which landmark the group is at, update the picture and the distance to the next one
                     switch(location.getLandmarksVisited())
                     {
                         case 1:
@@ -424,12 +473,15 @@ public class MainActivity extends AppCompatActivity {
                         default:
                             break;
                     }
+
+                    // gui changes to display the story of the landmark
                     storyDisplay.setText(story.storyLandmarks(location.whatLandmark()));
                     storyDisplay.setVisibility(View.VISIBLE);
                     storyDisplay.bringToFront();
 
-                    mp.pause();
+                    // change music to the town song
                     tt.start();
+                    mp.pause();
                 }
 
 
@@ -439,6 +491,7 @@ public class MainActivity extends AppCompatActivity {
 
                 /* Change the background color depending on the weather
                    White if there is snow
+                   Brown-green for now water in the cold months
                    Orange for drought
                    Blue for good weather
                  */
@@ -455,7 +508,7 @@ public class MainActivity extends AppCompatActivity {
                     background.setBackgroundColor(Color.rgb(0, 100, 100));
                 }
 
-                // restore 10 percent of the total health for resting over night
+                // Restore 10 percent of the total health for resting over night
                 health.startOfDayHealth();
 
                 // A party member is only sick for ten days, each day the total numbers of days sick is decreased
@@ -484,6 +537,8 @@ public class MainActivity extends AppCompatActivity {
 
                 // Set text in woman box to empty string
                 womanBox.setText("");
+
+                // Check if the women are able to help on each day
                 if(re.womenTask()) {
                 /*
                 When there are more than two people that are sick the women play with the children.
@@ -541,15 +596,14 @@ public class MainActivity extends AppCompatActivity {
                 weather.resetRain();
                 weather.resetSnow();
 
-
                 /* Find whether or not a random event occurs each day.
-                    If a random event takes place a prompt appears for the user to see what happened
-                    If someone gets bit by a snake the overall health goes up by 10
-                    If Indians help you find food the amount of food goes up 8 pounds
-                    If you take the wrong trail you have to back track using vital supplies
+                    If a random event takes place a prompt appears for the user to see what happened,
+                    and the picture changes in some cases.
+                    More variables are changed in some cases (food, health, and other stuff can increase or decrease)
                     Otherwise they message "It was a normal day" appears
                  */
                 if (re.snakeBite()) {
+                    // Snake bite effects the health overall and of a specific person
                     health.addHealth(10);
                     String person = health.randomPerson();
                     health.sickPerson(person);
@@ -557,43 +611,56 @@ public class MainActivity extends AppCompatActivity {
                     picture.setImageResource(R.drawable.snakebite);
                 }
                 else if (re.indiansHelpFindFood()) {
+                    // The amount of food increases
                     wagon.setFood(wagon.getFood() + 30);
                     reBox.setText("Indians helped you find food");
                     picture.setImageResource(R.drawable.indianshelping);
                 }
                 else if (re.wrongTrail()) {
+                    //Group is set back 3 days
                     reBox.setText("OH-NO you took the wrong trail");
                     resetDay += 3;
                 }
                 else if (re.lostTrail()) {
+                    // Group is set back 5 days
                     reBox.setText("You lost the trail");
                     resetDay += 5;
                 }
                 else if (re.wagonFire()) {
+                    // Certain items are lost
                     reBox.setText("The wagon caught on fire!!");
+                    wagon.setFood(wagon.getFood() - 10);
+                    wagon.setSewingKit(wagon.getSewingKit() - 2);
+                    wagon.setClothing(wagon.getClothing() - 1);
+                    wagon.setKidsToys(wagon.getKidsToys() - 2);
                     picture.setImageResource(R.drawable.wagonfire);
                 }
                 else if (re.lostPerson()) {
+                    // Group is set back 4 days
                     String person = health.randomPerson();
                     reBox.setText(person + " is missing");
                     resetDay += 4;
                 }
                 else if (re.lostOxen()) {
+                    // Group is set back 2 days
                     reBox.setText("An oxen has wandered off.");
                     resetDay += 2;
                     picture.setImageResource(R.drawable.oxen);
                 }
                 else if(re.injuredOxen(location.getZone())){
+                    // Oxen health is effected
                     reBox.setText("An oxen got injured today.");
                     health.sickOx();
                 }
                 else if(re.injuredPerson(location.getZone())){
+                    // Overall health and specific person health is increased
                     String person = health.randomPerson();
                     reBox.setText(person + " is injured");
                     health.setDaysSick(person);
                     health.addHealth(10);
                 }
                 else if (re.foundWagon()) {
+                    // Items are gained
                     reBox.setText("You found an abandoned wagon");
                     wagon.setFood(wagon.getFood() + 10);
                     wagon.setCookingItems(wagon.getCookingItems() + 3);
@@ -601,12 +668,14 @@ public class MainActivity extends AppCompatActivity {
                     wagon.setClothing(wagon.getClothing() + 2);
                 }
                 else if (re.robbedAtNight()) {
+                    // Items are lost
                     reBox.setText("You got robbed in the middle of the night");
                     wagon.setFood(wagon.getFood() - 10);
                     wagon.setSewingKit(wagon.getSewingKit() - 1);
                     wagon.setClothing(wagon.getClothing() - 3);
                     picture.setImageResource(R.drawable.robber);
                 }
+                // Display when nothing happens
                 else {
                     reBox.setText("It was a normal day!");
                 }
@@ -651,8 +720,10 @@ public class MainActivity extends AppCompatActivity {
                     rations = "Out of food";
                 }
 
-                // Using the rations found above determine how the health is effected
+                // The freeze/Starve factor is added to the overall health
                 health.starveFreezeFactor(wagon.getFood(), wagon.getClothing(), weather.getRealTemp());
+
+                // Using the rations found above determine how the health is effected by food, pace, and weather
                 health.healthFromFood(rations);
                 health.healthFromPace(location.getPace());
                 health.healthFromWeather(weather.displayTemperature(weather.getRealTemp()), wagon.getClothing());
@@ -660,7 +731,12 @@ public class MainActivity extends AppCompatActivity {
                 // display to the user the overall health of the entire group
                 healthBox.setText(health.generalHealth());
 
-                //Takes away food every day or displays no food
+                /*
+                Takes away food every day or displays no food
+                When there is less than twenty pounds of food the group runs out of food
+                When there is more than twenty pounds of food then 20 pounds are subtracted form the total each day
+                When there is no more food remaining nothing is subtracted.
+                 */
                 if (wagon.getFood() > 0) {
                     if(wagon.getFood() < 20){
                         wagon.setFood(0);
@@ -671,12 +747,18 @@ public class MainActivity extends AppCompatActivity {
                         foodBox.setText(Double.toString(wagon.getFood()));
                     }
                 }
-                else
-                {
+                else {
                     foodBox.setText("No Food");
                 }
+
+                // Updated the day for the user in the bottom corner
                 date.setText(location.whatMonth() + " " + location.getDay());
 
+                /*
+                 The game is lost when all family members die.
+                 When this happens display it to the user, stop the music, and make the restart
+                 button appear so they can play again.
+                 */
                 if(health.gameLost()){
                     healthBox.setText("");
                     foodBox.setText("");
@@ -685,6 +767,7 @@ public class MainActivity extends AppCompatActivity {
                     reBox.setText("Everyone has died :(");
                     newGame.setVisibility(View.VISIBLE);
                     nextDay.setVisibility(View.INVISIBLE);
+                    mp.pause();
                 }
             }
         });

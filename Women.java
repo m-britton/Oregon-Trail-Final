@@ -10,6 +10,8 @@ public class Women extends Wagon
     // A string that will be displayed to the user.
     String message = "";
 
+    public String getMessage(){ return message;}
+
     /**
      * playWithKids -> This method allows the women to play with their children when they are sick to
      * speed up their recovery process. Each time the method is called a toy is removed from the total.
@@ -28,6 +30,7 @@ public class Women extends Wagon
     {
         setCookingItems(getCookingItems() + remove1);
         setFood(getFood() + 20);
+        message = "The women cooked food today!!";
     }
 
     /**
@@ -40,7 +43,7 @@ public class Women extends Wagon
         int intRandom = rand.nextInt(4) + 1;
         setCookingItems(getCookingItems() + intRandom);
         setFood(getFood() + (intRandom * 5));
-        message = "You found " + intRandom + " cooking supplies!";
+        message = "The women found food and cooking supplies!!";
     }
 
     /**
@@ -50,6 +53,6 @@ public class Women extends Wagon
     public void restoreClothing(){
         setClothing(getClothing() + 2);
         setSewingKit(getSewingKit() + remove1);
-        message = "You have restored two items of clothing!!";
+        message = "The Women have restored two items of clothing!!";
     }
 }

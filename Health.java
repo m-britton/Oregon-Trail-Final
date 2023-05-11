@@ -17,43 +17,52 @@ import java.util.Random;
 
 public class Health {
 
-    // Fields
-
+    // overall health of the people and oxen
     public double health = 0.0;
     private double oxenHealth = 0.0;
-    private double sickOxen = 0.0;
-    private double freezeStarveFactor = 0.0;
-    private int sickPeople = 0;
 
+    // Amount added to health based on freezing and starving conditions
+    private double freezeStarveFactor = 0.0;
+
+    // number of people and oxen who are sick
+    private int sickPeople = 0;
+    private double sickOxen = 0.0;
+
+    // number od people an oxen remaining in the game
     private int totalPeople = 5;
     private double totalOxen = 0.0;
 
+    // Track the number of days a person must remain sick
     private int person1daysSick = 0;
     private int person2daysSick = 0;
     private int person3daysSick = 0;
     private int person4daysSick = 0;
     private int person5daysSick = 0;
 
+    // Integers to denote how many illnesses a person has had throughout the game
     private int person1illnesses = 0;
     private int person2illnesses = 0;
     private int person3illnesses = 0;
     private int person4illnesses = 0;
     private int person5illnesses = 0;
 
+    // Booleans to determine if the person is healthy
     private boolean person1health = true;
     private boolean person2health = true;
     private boolean person3health = true;
     private boolean person4health = true;
     private boolean person5health = true;
 
+    // ArrayLists of who has died and who remains living
     private ArrayList<String> deadPeople = new ArrayList<String>();
     private ArrayList<String> thePeople = new ArrayList<>();
 
+    // Strings of names for the people in the game
     private String person1 = "Hattie";
     private String person2 = "Jake";
     private String person3 = "Ben";
-    private String person4 = "Annie";
-    private String person5 = "Lydia";
+    private String person4 = "Augusta";
+    private String person5 = "Charles";
 
 
 
@@ -154,10 +163,17 @@ public class Health {
         }
     }
 
+    /**
+     * getThePeople -> Accesses an array that determines what family members are remaining in the game.
+     * @return -> An arrayList of the people remaining in the game.
+     */
     public ArrayList<String> getThePeople() {
         return thePeople;
     }
 
+    /**
+     * addPeople -> Adds all the family members to an arrayList when the player starts the game.
+     */
     public void addPeople(){
         thePeople.add(person1);
         thePeople.add(person2);
@@ -376,6 +392,9 @@ public class Health {
         }
     }
 
+    /**
+     * resetDaysSick -> Tracks the number of days a person remains sick. It decreases everyday for ten days.
+     */
     public void resetDaysSick(){
         if(person1daysSick > 0){
             person1daysSick -= 1;
@@ -412,17 +431,6 @@ public class Health {
         else{
             person5health = true;
         }
-    }
-    /**
-     * trackInjury -> Tracks the number of days an individual has had an injury, up to thirty days.
-     * @param person -> The person that has sustained the injury.
-     */
-    public void trackInjury(boolean person){
-        for(int days = 0; days < 30; days++){
-            person = false;
-        }
-        person = true;
-        sickPeople -= 1;
     }
 
     /**
@@ -556,10 +564,20 @@ public class Health {
         }
     }
 
-    public boolean personHasDied(String person){
-        return getNumberIllnesses(person) == 4;
+    /**
+     * personHasDied -> A person is allowed to contract 3 diseases before dying, they die when
+     *                  the third illness is contracted.
+     * @param person -> String to denote which member of the group is being checked
+     * @return -> True if it is their third illness; False otherwise
+     */
+    public boolean personHasDied(String person) {
+            return getNumberIllnesses(person) == 3;
     }
 
-    public boolean gameOver(){return deadPeople.size() == 5;}
+    /**
+     * gameLost -> If all members of the family die then the game is lost. This method checks for this scenario.
+     * @return -> True if all 5 family members are in the deadPeople arrayList; False otherwise.
+     */
+    public boolean gameLost(){return deadPeople.size() == 5;}
 
 }

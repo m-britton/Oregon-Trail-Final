@@ -20,28 +20,24 @@ public class RandomEvents {
     private final double indiansFindFood = 5.0;
     private final double wrongWay = 1.0;
     private final double lostTrail = 2.0;
-    private final double roughTrail = 2.5;
-    private final double impossibleTrail = 2.5;
+
     private final double foundWildFruit = 4.0;
     private final double fire = 2.0;
     private final double lostMember = 1.0;
     private final double missingOx = 1.0;
     private final double abandonedWagon = 2.0;
-    private final double blizzard = 15.0;
-    private final double foggy = 6.0;
-    private final double hail = 6.0;
     private final double prairieInjury = 2.0;
     private final double mountainInjury = 3.5;
     private final double thief = 2.0;
     private final double badWater = 10.0;
     private final double veryLittleWater = 20.0;
     private final double inadequateGrass = 20.0;
+    private final double doTask = 50.0;
+
     // The probability of an event happening
     public double eventProbability = 0.0;
 
-
     // constructors
-
     /**
      * Constructor that finds the probability of something happening
      */
@@ -99,40 +95,6 @@ public class RandomEvents {
     }
 
     /**
-     * severeBlizzard -> Determines whether or not the group encounters a severe blizzard. Only used
-     *                  when the temperature is cold or very cold.
-     * @return -> True if the randomly generated probability is less than the probability of a blizzard
-     *              False otherwise.
-     */
-    public boolean severeBlizzard(){
-        // generate a random probability of an event occurring and compare it to the probability of a specific event
-        setEventProbability();
-        return eventProbability <= blizzard;
-    }
-
-    /**
-     * heavyFog -> Determines whether or not the group encounters heavy fog. Only used after Fort Hall.
-     * @return -> True if the randomly generated probability if less than the probability of heavy fog
-     *              False otherwise
-     */
-    public boolean heavyFog(){
-        // generate a random probability of an event occurring and compare it to the probability of a specific event
-        setEventProbability();
-        return eventProbability <= foggy;
-    }
-
-    /**
-     * hailStorm -> Determines whether or not the group experiences the effects of a hail storm
-     * @return -> True if the randomly generated probability is less than the likelihood of a hail storm
-     *              False otherwise
-     */
-    public boolean hailStorm(){
-        // generate a random probability of an event occurring and compare it to the probability of a specific event
-        setEventProbability();
-        return eventProbability <= hail;
-    }
-
-    /**
      * injuredOxen -> Used when traveling on the prairie. Determines if an oxen is injured
      * @param zone -> An integer representing the zone the group is traveling in, and if the zone is mountainous.
      * @return -> True if the randomly generated probability is less than that of getting injured
@@ -177,29 +139,6 @@ public class RandomEvents {
         return eventProbability <= lostTrail;
     }
 
-    /**
-     * roughTrail -> Used when traveling through the mountains. Determines whether or not the group
-     *              travels along a rough trail.
-     * @return -> True if the randomly generated probability if less than the probability of
-     *              experiencing rough terrain; False otherwise.
-     */
-    public boolean roughTrail(){
-        // generate a random probability of an event occurring and compare it to the probability of a specific event
-        setEventProbability();
-        return eventProbability <= roughTrail;
-    }
-
-    /**
-     * impossibleTrail -> Used in mountainous regions. Determines whether or not the group find an
-     *                  impossible trail to travel.
-     * @return -> True if the randomly generated probability is less than the likelihood of finding
-     *              an impossible trail; False otherwise.
-     */
-    public boolean impossibleTrail(){
-        // generate a random probability of an event occurring and compare it to the probability of a specific event
-        setEventProbability();
-        return eventProbability <= impossibleTrail;
-    }
 
     /**
      * foundFruit -> Used during months May-September. Determines whether or not the group finds wild
@@ -327,13 +266,13 @@ public class RandomEvents {
             illnessProbability = 10.0;
         }
         else if(health <= 104){
-            illnessProbability = 18.0;
+            illnessProbability = 20.0;
         }
         else if(health <= 139){
-            illnessProbability = 27.0;
+            illnessProbability = 32.0;
         }
         else{
-            illnessProbability = 40.0;
+            illnessProbability = 45.0;
         }
 
         // Generate a random probability of an illness occurring and compare it to the actual probability of an illness occurring.
@@ -369,5 +308,10 @@ public class RandomEvents {
         //Generate a random probability of a problem happening, and compare it to the chance of problems actually occurring
         setEventProbability();
         return eventProbability <= problemCrossing;
+    }
+
+    public boolean womenTask(){
+        setEventProbability();
+        return eventProbability <= doTask;
     }
 }

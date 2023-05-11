@@ -4,12 +4,34 @@ public class Story {
     private String townStory  =  "No story for town";
     private String landmarkStory = "No story for landmark";
 
+    public final String welcomeStory = "Hi I’m Hattie, my family is about to embark on a very " +
+            "dangerous and challenging adventure to oregon. My parents Charles and Augusta are " +
+            "taking me and my siblings Ben and Jake across the country to start a new and better " +
+            "life. It’s time for us to buy our supplies for our trip along the Oregon trail. " +
+            "We have $1000 to spend. Click enter shop and help my family fill our wagon. \n";
+
+    public final String getStartedStory = " Thanks for your help shopping. Now it’s time for us to " +
+            "start our journey. I’ve heard many stories about people traveling the trail and how " +
+            "difficult the journey can be and they make me nervous. However, I believe my family " +
+            "can do it and I will do anything I can to help us get to Oregon. My mother and I will " +
+            "do most of the cooking and foraging while my dad and brothers rest for the next day. " +
+            "We will also repair any clothing we can along our journey because the winters can be " +
+            "harsh and we will need all the layers we can get. Remember anything can happen at any " +
+            "point  along the Oregon trail. Click next day to begin. ";
+
 
     public String storyTowns(String town){
 
         if(town.equalsIgnoreCase("Fort Kearney")){
 
-            this.townStory = "Fort Kearney Not finished";
+            this.townStory = "You made it to your first town, Fort Kearney. Fort Kearny was a " +
+                    "historic outpost of the United States Army founded in 1848 in the western " +
+                    "U.S. during the middle and late 19th century. The fort was named after Col. " +
+                    "and later General Stephen Watts Kearny. The fort was built in response to the " +
+                    "growth of overland emigration to Oregon after 1845. Despite its lack of " +
+                    "fortifications, Fort Kearny served as way station, sentinel post, supply depot, " +
+                    "and message center for 49'ers bound for California and homeseekers traveling " +
+                    "to California, Oregon and the Pacific Northwest.\n";
 
         }
         else if (town.equalsIgnoreCase("Laramie")){

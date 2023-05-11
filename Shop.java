@@ -7,8 +7,11 @@
  */
 
 public class Shop {
+    
+     //Fields
     public boolean buying = true;
-
+    
+    //Goods the player can buy
     public double food_Price = 0.00;
     public double clothing_Price = 0.00;
     public double weapons_Price = 0.00;
@@ -25,12 +28,18 @@ public class Shop {
     public double shovels_Price = 0.00;
     public double cookingItems_Price = 0.00;
 
-    public String otherinput;
+    //input from the user (name of what they want to buy or the number associated with that category name)
+    public String otherinput; 
+    
+    //Shop shelf
     public String output = "";
-    public double amount = 0;
+    public double amount = 0; // Depending on what town the user is in the price will change. amount is responoble for this.
 
+   /*
+    * storeLayout -> This is what will be outputed on the display screen first when the user goes to buy goods
+    * @return -> Shop shelf, outputs how much of each item the user has bought
+    */
     public String storeLayout() {
-
 
         String title = "Matt's General Store" + "\n" + "                           ";
 
@@ -63,44 +72,53 @@ public class Shop {
     }
 
 
-
+    /*
+    * calcBoughtItem -> Calculates the price of the good the user picked to buy
+    * @param categoryRequest -> takes in the item the user picked
+    * @param inputNumber -> takes in the quantity of the good the user wants to buy
+    * @return -> the total price of what the user chose to buy
+    */
     public double calcBoughtItem(String categoryRequest, int inputNumber, String town){
 
-        double number = 0;
-        buying = true;
+        double number = 0; // Calculates the price of the item the user has bought
+        buying = true; // If the user is paying for a good 'buying' will be true
         
        
         if (town.equalsIgnoreCase("Independence")){
             
             amount = 1;
         }
-        else if (town.equalsIgnoreCase("Laramie")){
+        else if (town.equalsIgnoreCase("Fort Kearny")){ // If the user is at Fort Kearny the price will be 25 cents per pound
             
             amount = 1.25;
         }
-        else if (town.equalsIgnoreCase("Fort Bridger")){
+        else if (town.equalsIgnoreCase("Laramie")){ // If the user is at Laramie the price will be 30 cents per pound
+            
+            amount = 1.30;
+        }
+        else if (town.equalsIgnoreCase("Fort Bridger")){ // 35 cents per pound
+            
+            amount = 1.35;   
+        }
+        else if (town.equalsIgnoreCase("Fort Hall")){ // 40 cents per pound
+            
+            amount = 1.40;   
+        }
+        else if (town.equalsIgnoreCase("Fort Boise")){ // 45 cents per pound
+            
+            amount = 1.45;   
+        }
+        else if (town.equalsIgnoreCase("Fort walla Walla")){ // 50 cents per pound
             
             amount = 1.50;   
         }
-        else if (town.equalsIgnoreCase("Fort Hall")){
+        else if (town.equalsIgnoreCase("Oregon City")){ //// 55 cents per pound
             
-            amount = 1.75;   
-        }
-        else if (town.equalsIgnoreCase("Fort Boise")){
-            
-            amount = 2;   
-        }
-        else if (town.equalsIgnoreCase("Fort walla Walla")){
-            
-            amount = 2.25;   
-        }
-        else if (town.equalsIgnoreCase("Oregon City")){
-            
-            amount = 2.5;   
+            amount = 1.55;   
         }
        
 
-        
+        // Depending on what catigoy the user picked and the amount they want the price will be calculated for them 
         if (categoryRequest.equalsIgnoreCase("Food") || categoryRequest.equals("1")){
 
             food_Price = food_Price + ((.10 * amount) * inputNumber);
@@ -199,12 +217,17 @@ public class Shop {
 
         }
 
-        storeLayout();
+        storeLayout(); // Updates the store shelf
         return number;
 
     }
 
-
+    /*
+    * buyItem -> The user enters the category/item they want to buy and the appropriate text is dispalyed 
+    * @param userInput -> takes in the category/item the user picked
+    * @param inputNumber -> takes in the quantity of the good the user wants to buy
+    * @return -> returns the appropriate text dispaly
+    */
     public String buyItem(String userInput , String town) {
 
         buying = false;

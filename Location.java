@@ -1,5 +1,15 @@
 package com.example.mp2oregontrailmvp;
 
+/**
+ * Name: Loaction
+ * Date: 4/4/2023
+ * Author: Kaleb Swieringa
+ * Description: This class determines the location of the player, and updates distances from various sites the player visits.
+ * Depending on how many of a certain type of site the player has visited the class will determine what site they are at.
+ * It also keeps track of the day and month.
+ *
+ */
+
 public class Location {
     private int location;
     private int month;
@@ -154,8 +164,11 @@ public class Location {
     public int getZone(){return zone;}
     public int getPace(){return pace;}
 
-
-    //Returns what month it is as a string based upon the integer number for month
+    /**
+     * whatMonth: Returns what month it is as a string based upon the integer number for month
+     *
+     * @return monthOfYear - Returns what month it is in string format.
+     */
     public String whatMonth()
     {
         String monthOfYear = "";
@@ -204,7 +217,10 @@ public class Location {
         return monthOfYear;
     }
 
-    //Increments the day count by 1 (sets to zero if the month changes) and switches the month if the criteria is met
+   /**
+     * incrementDay: Increments the day count by 1 (sets to zero if the month changes)
+     * and switches the month if the criteria is met.
+     */
     public void incrementDay()
     {
         //Checks if the current month has 31 days and, if so, makes sure the month changes if it is day 31
@@ -257,7 +273,10 @@ public class Location {
 
     }
 
-    //Determines if the player is at any special stop. This should be called in the main method for every day that passes.
+   /**Determines if the player is at any special stop.
+     * This should be called in the main method for every day that passes.
+     *
+     */
     public void atLandmark()
     {
         if (this.distanceToRiver <= 0)
@@ -279,7 +298,10 @@ public class Location {
         }
     }
 
-    //Determines what town the player is in based on how many towns they have visited
+   /**Determines what town the player is in based on how many towns they have visited
+     *
+     * @return town - what town the player is currently at.
+     */
     public String whatTown()
     {
         String town = "";
@@ -321,7 +343,10 @@ public class Location {
         return town;
     }
 
-    //Determines what landmark the player is at depending on how many landmarks they have visited
+    /**Determines what landmark the player is at depending on how many landmarks they have visited
+     *
+     * @return landmark - what landmark the player is at.
+     */
     public String whatLandmark()
     {
         String landmark = "";

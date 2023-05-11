@@ -1,4 +1,11 @@
 package com.example.mp2oregontrailmvp;
+/**
+ * Name: Wagon
+ * Date: 4/4/2023
+ * Author: Kaleb Swieringa
+ * Description: This class holds all the data on what items the player has.
+ * All the various items and consumables are here.
+ */
 
 public class Wagon {
 
